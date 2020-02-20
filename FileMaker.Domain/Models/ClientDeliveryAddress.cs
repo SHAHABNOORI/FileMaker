@@ -1,6 +1,4 @@
-﻿using FileMaker.Infrastructure.Enums;
-
-namespace FileMaker.Domain.Models
+﻿namespace FileMaker.Domain.Models
 {
     public class ClientDeliveryAddress
     {

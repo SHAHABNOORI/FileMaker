@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FileMaker.Dal.Repositories.Interfaces;
 using FileMaker.Domain.Contexts;
 using FileMaker.Domain.Models;

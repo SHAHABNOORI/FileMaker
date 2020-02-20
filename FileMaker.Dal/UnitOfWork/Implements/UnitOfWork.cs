@@ -3,7 +3,6 @@ using FileMaker.Dal.Repositories.Implements;
 using FileMaker.Dal.Repositories.Interfaces;
 using FileMaker.Dal.UnitOfWork.Interfaces;
 using FileMaker.Domain.Contexts;
-using FileMaker.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FileMaker.Dal.UnitOfWork.Implements

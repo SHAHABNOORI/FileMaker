@@ -3,7 +3,6 @@ using FileMaker.Dal.Repositories.Interfaces;
 using FileMaker.Dal.UnitOfWork.Implements;
 using FileMaker.Dal.UnitOfWork.Interfaces;
 using FileMaker.Domain.Contexts;
-using FileMaker.Domain.Models;
 using FileMaker.Service.Implements.Modules.Clients;
 using FileMaker.Service.Implements.Modules.Languages;
 using FileMaker.Service.Implements.Modules.Origins;
