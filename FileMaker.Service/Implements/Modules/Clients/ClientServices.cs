@@ -39,7 +39,7 @@ namespace FileMaker.Service.Implements.Modules.Clients
                     SexualOrientation = command.SexualOrientation
                 });
                 var result = await UnitOfWork.CompleteAsync();
-                return result == 0 ? GenerateSuccessResult("ثبت", null) :
+                return result != 0 ? GenerateSuccessResult("ثبت", null) :
                     GenerateFaidResult("ثبت");
             }
             catch (Exception e)
@@ -142,7 +142,7 @@ namespace FileMaker.Service.Implements.Modules.Clients
 
             UnitOfWork.Update(selectedClient);
             var result = await UnitOfWork.CompleteAsync();
-            return result == 0 ? GenerateSuccessResult("ویرایش ", null) :
+            return result != 0 ? GenerateSuccessResult("ویرایش ", null) :
                 GenerateFaidResult("ویرایش ");
         }
 
@@ -151,6 +151,87 @@ namespace FileMaker.Service.Implements.Modules.Clients
             var selectedClient = await UnitOfWork.ClientRepository.GetClientInfoByClientCode(id);
             if (selectedClient == null)
                 return GenerateFaidResult("کلاینت مورد نظر یافت نشد");
+
+            var viewModel = GenerateClientBaseInfoViewModel(selectedClient);
+
+            if (selectedClient.ClientAddress != null)
+            {
+                GenerateClientAddressViewModel(viewModel, selectedClient);
+            }
+
+            if (selectedClient.ClientContact != null)
+            {
+                GenerateClientContactViewModel(viewModel, selectedClient);
+            }
+
+            if (selectedClient.ClientDeliveryAddress != null)
+            {
+                GenerateClientDeliveryAddressViewModel(viewModel, selectedClient);
+            }
+
+            if (selectedClient.ClientExtraInformation != null)
+            {
+                GenerateClientExtraInformationViewModel(viewModel, selectedClient);
+            }
+
+            if (selectedClient.ClientPayment != null)
+            {
+                GenerateClientPaymentViewModel(viewModel, selectedClient);
+            }
+
+            if (selectedClient.ClientPurchase != null)
+            {
+                GenerateClientPurchaseViewModel(viewModel, selectedClient);
+            }
+
+            return GenerateSuccessResult("دریافت", viewModel);
+        }
+
+        private  void GenerateClientPurchaseViewModel(ClientInfoViewModel viewModel, Client selectedClient)
+        {
+            viewModel.ClientPurchase = new ClientPurchaseViewModel()
+            {
+                Vat = selectedClient.ClientPurchase.Vat,
+                PaymentMethod = selectedClient.ClientPurchase.PaymentMethod,
+                PaymentTerms = selectedClient.ClientPurchase.PaymentTerms,
+                Balance = selectedClient.ClientPurchase.Balance,
+                Discount = selectedClient.ClientPurchase.Discount,
+                Pricing = selectedClient.ClientPurchase.Pricing,
+                Credit = selectedClient.ClientPurchase.Credit
+            };
+        }
+
+        private  void GenerateClientPaymentViewModel(ClientInfoViewModel viewModel, Client selectedClient)
+        {
+            viewModel.ClientPayment = new ClientPaymentViewModel()
+            {
+                Name = selectedClient.ClientPayment.Name,
+                GpsAddress = selectedClient.ClientPayment.GpsAddress,
+                DateOfReferral = selectedClient.ClientPayment.DateOfReferral,
+                OtherReqirments = selectedClient.ClientPayment.OtherReqirments,
+                GpsName = selectedClient.ClientPayment.GpsName,
+                ReasonForRefrral = selectedClient.ClientPayment.ReasonForRefrral,
+                ReferralFor = selectedClient.ClientPayment.ReferralFor,
+                ReferralTel = selectedClient.ClientPayment.ReferralTel,
+                Therapist = selectedClient.ClientPayment.Therapist,
+                ReferralBy = selectedClient.ClientPayment.ReferralBy,
+                GpsNumber = selectedClient.ClientPayment.GpsNumber
+            };
+        }
+
+        private  void GenerateClientExtraInformationViewModel(ClientInfoViewModel viewModel, Client selectedClient)
+        {
+            viewModel.ClientExtraInformation = new ClientExtraInformationViewModel()
+            {
+                Name = selectedClient.ClientExtraInformation.Name,
+                ContactNumber = selectedClient.ClientExtraInformation.ContactNumber,
+                RelationShip = selectedClient.ClientExtraInformation.RelationShip,
+                Ntk = selectedClient.ClientExtraInformation.Ntk
+            };
+        }
+
+        private ClientInfoViewModel GenerateClientBaseInfoViewModel(Client selectedClient)
+        {
             var viewModel = new ClientInfoViewModel()
             {
                 Origin = new OriginViewModel()
@@ -172,46 +253,46 @@ namespace FileMaker.Service.Implements.Modules.Clients
                 SexualOrientation = selectedClient.SexualOrientation,
                 Title = selectedClient.Title
             };
-            if (selectedClient.ClientAddress != null)
-            {
-                viewModel.ClientAddress = new ClientAddressViewModel()
-                {
-                    City = selectedClient.ClientAddress.City,
-                    Town = selectedClient.ClientAddress.Town,
-                    Address = selectedClient.ClientAddress.Address,
-                    PostalCode = selectedClient.ClientAddress.PostalCode,
-                    BussinesAddress = selectedClient.ClientAddress.BussinesAddress
-                };
-            }
+            return viewModel;
+        }
 
-            if (selectedClient.ClientContact != null)
+        private void GenerateClientDeliveryAddressViewModel(ClientInfoViewModel viewModel, Client selectedClient)
+        {
+            viewModel.ClientDeliveryAddress = new ClientDeliveryAddressViewModel()
             {
-                viewModel.ClientContact = new ClientContactViewModel()
-                {
-                    ContactType = selectedClient.ClientContact.ContactType,
-                    PhoneNumber = selectedClient.ClientContact.PhoneNumber,
-                    EmailAddress = selectedClient.ClientContact.EmailAddress,
-                    HomeNumber = selectedClient.ClientContact.HomeNumber,
-                    MobileNumber = selectedClient.ClientContact.MobileNumber,
-                    Website = selectedClient.ClientContact.Website,
-                    OkToContact = selectedClient.ClientContact.OkToContact
-                };
-            }
+                Town = selectedClient.ClientDeliveryAddress.Town,
+                City = selectedClient.ClientDeliveryAddress.City,
+                Address = selectedClient.ClientDeliveryAddress.Address,
+                PostalCode = selectedClient.ClientDeliveryAddress.PostalCode,
+                PhoneNumber = selectedClient.ClientDeliveryAddress.PhoneNumber,
+                Name = selectedClient.ClientDeliveryAddress.Name
+            };
+        }
 
-            if (selectedClient.ClientDeliveryAddress != null)
+        private void GenerateClientContactViewModel(ClientInfoViewModel viewModel, Client selectedClient)
+        {
+            viewModel.ClientContact = new ClientContactViewModel()
             {
-                viewModel.ClientDeliveryAddress = new ClientDeliveryAddressViewModel()
-                {
-                    Town = selectedClient.ClientDeliveryAddress.Town,
-                    City = selectedClient.ClientDeliveryAddress.City,
-                    Address = selectedClient.ClientDeliveryAddress.Address,
-                    PostalCode = selectedClient.ClientDeliveryAddress.PostalCode,
-                    PhoneNumber = selectedClient.ClientDeliveryAddress.PhoneNumber,
-                    Name = selectedClient.ClientDeliveryAddress.Name
-                };
-            }
+                ContactType = selectedClient.ClientContact.ContactType,
+                PhoneNumber = selectedClient.ClientContact.PhoneNumber,
+                EmailAddress = selectedClient.ClientContact.EmailAddress,
+                HomeNumber = selectedClient.ClientContact.HomeNumber,
+                MobileNumber = selectedClient.ClientContact.MobileNumber,
+                Website = selectedClient.ClientContact.Website,
+                OkToContact = selectedClient.ClientContact.OkToContact
+            };
+        }
 
-            return GenerateSuccessResult("دریافت", viewModel);
+        private void GenerateClientAddressViewModel(ClientInfoViewModel viewModel, Client selectedClient)
+        {
+            viewModel.ClientAddress = new ClientAddressViewModel()
+            {
+                City = selectedClient.ClientAddress.City,
+                Town = selectedClient.ClientAddress.Town,
+                Address = selectedClient.ClientAddress.Address,
+                PostalCode = selectedClient.ClientAddress.PostalCode,
+                BussinesAddress = selectedClient.ClientAddress.BussinesAddress
+            };
         }
 
         public async Task<Result> CreateClientPurchaceInfoAsyn(CreateClientPurchaceInformationCommand command)
@@ -256,7 +337,7 @@ namespace FileMaker.Service.Implements.Modules.Clients
 
             UnitOfWork.Update(selectedClient);
             var result = await UnitOfWork.CompleteAsync();
-            return result == 0 ? GenerateSuccessResult("ویرایش ", null) :
+            return result != 0 ? GenerateSuccessResult("ویرایش ", null) :
                 GenerateFaidResult("ویرایش ");
         }
     }

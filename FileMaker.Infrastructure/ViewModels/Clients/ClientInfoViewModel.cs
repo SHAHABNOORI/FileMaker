@@ -46,5 +46,11 @@ namespace FileMaker.Infrastructure.ViewModels.Clients
         public ClientContactViewModel ClientContact { get; set; }
 
         public ClientDeliveryAddressViewModel ClientDeliveryAddress { get; set; }
+
+        public ClientExtraInformationViewModel ClientExtraInformation { get; set; }
+
+        public ClientPaymentViewModel ClientPayment { get; set; }
+
+        public ClientPurchaseViewModel ClientPurchase { get; set; }
     }
 }

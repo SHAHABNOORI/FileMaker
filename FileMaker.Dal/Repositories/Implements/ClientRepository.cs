@@ -29,6 +29,9 @@ namespace FileMaker.Dal.Repositories.Implements
                 .Include(client => client.ClientAddress)
                 .Include(client => client.ClientDeliveryAddress)
                 .Include(client => client.ClientContact)
+                .Include(client => client.ClientExtraInformation)
+                .Include(client => client.ClientPayment)
+                .Include(client => client.ClientPurchase)
                 .FirstOrDefaultAsync(client => client.ClientCode == clientCode);
             return result;
         }

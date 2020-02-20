@@ -10,12 +10,12 @@ namespace FileMaker.Api.Controllers.Clients
  
     [ApiController]
     [Route("[controller]")]
-    public class ClientPurchaceInforController : ControllerBase
+    public class ClientPurchaceInfoController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IClientServices _clientServices;
 
-        public ClientPurchaceInforController(IClientServices clientServices, IUnitOfWork unitOfWork)
+        public ClientPurchaceInfoController(IClientServices clientServices, IUnitOfWork unitOfWork)
         {
             _clientServices = clientServices;
             _unitOfWork = unitOfWork;
