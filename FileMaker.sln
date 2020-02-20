@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMaker.Api", "FileMaker.Api\FileMaker.Api.csproj", "{33178D9D-C0F5-4E4D-8051-FBDD43D5086D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMaker.Infrastructure", "FileMaker.Infrastructure\FileMaker.Infrastructure.csproj", "{94398A95-070E-49D1-96F8-51A748529C5E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMaker.Dal", "FileMaker.Dal\FileMaker.Dal.csproj", "{FDD5D689-7A6D-4CBC-85F9-0F4B659CF712}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMaker.Domain", "FileMaker.Domain\FileMaker.Domain.csproj", "{1B3E0FA4-8590-4CB3-BB22-7975B80D193F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileMaker.Service", "FileMaker.Service\FileMaker.Service.csproj", "{AB34CE55-76E4-41E8-ACE2-61A936E64DDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileMaker.Commands", "FileMaker.Commands\FileMaker.Commands.csproj", "{C4E8E3E6-15E6-49DF-9BA4-B09210E15B73}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33178D9D-C0F5-4E4D-8051-FBDD43D5086D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33178D9D-C0F5-4E4D-8051-FBDD43D5086D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33178D9D-C0F5-4E4D-8051-FBDD43D5086D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33178D9D-C0F5-4E4D-8051-FBDD43D5086D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94398A95-070E-49D1-96F8-51A748529C5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94398A95-070E-49D1-96F8-51A748529C5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94398A95-070E-49D1-96F8-51A748529C5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94398A95-070E-49D1-96F8-51A748529C5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDD5D689-7A6D-4CBC-85F9-0F4B659CF712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD5D689-7A6D-4CBC-85F9-0F4B659CF712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD5D689-7A6D-4CBC-85F9-0F4B659CF712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD5D689-7A6D-4CBC-85F9-0F4B659CF712}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B3E0FA4-8590-4CB3-BB22-7975B80D193F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B3E0FA4-8590-4CB3-BB22-7975B80D193F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B3E0FA4-8590-4CB3-BB22-7975B80D193F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B3E0FA4-8590-4CB3-BB22-7975B80D193F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB34CE55-76E4-41E8-ACE2-61A936E64DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB34CE55-76E4-41E8-ACE2-61A936E64DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB34CE55-76E4-41E8-ACE2-61A936E64DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB34CE55-76E4-41E8-ACE2-61A936E64DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4E8E3E6-15E6-49DF-9BA4-B09210E15B73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4E8E3E6-15E6-49DF-9BA4-B09210E15B73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4E8E3E6-15E6-49DF-9BA4-B09210E15B73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4E8E3E6-15E6-49DF-9BA4-B09210E15B73}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A21E485-AC7D-41DD-856E-BA6162E6F5F4}
+	EndGlobalSection
+EndGlobal

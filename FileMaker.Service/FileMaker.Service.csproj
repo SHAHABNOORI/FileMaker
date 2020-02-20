@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FileMaker.Commands\FileMaker.Commands.csproj" />
+    <ProjectReference Include="..\FileMaker.Dal\FileMaker.Dal.csproj" />
+    <ProjectReference Include="..\FileMaker.Infrastructure\FileMaker.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
