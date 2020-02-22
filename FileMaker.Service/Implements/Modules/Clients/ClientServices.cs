@@ -17,12 +17,18 @@ namespace FileMaker.Service.Implements.Modules.Clients
         {
         }
 
+        /// <summary>
+        /// سرویس ثبت اطلاعات اولیه کلاینت
+        /// Client Base Info Create Service
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         public async Task<Result> CreateClientBaseInfoAsyn(CreateClientBaseInfoCommand command)
         {
             try
             {
                 var origin = await UnitOfWork.OriginsRepository.FirstOrDefaultAsync(o => o.Id == command.OriginId);
-                await UnitOfWork.ClientRepository.AddAsync(new Client()
+                var newClient = new Client()
                 {
                     ClientCategory = command.ClientCategory,
                     Dob = command.Dob,
@@ -37,9 +43,10 @@ namespace FileMaker.Service.Implements.Modules.Clients
                     Title = command.Title,
                     Status = command.Status,
                     SexualOrientation = command.SexualOrientation
-                });
+                };
+                await UnitOfWork.ClientRepository.AddAsync(newClient);
                 var result = await UnitOfWork.CompleteAsync();
-                return result != 0 ? GenerateSuccessResult("ثبت", null) :
+                return result != 0 ? GenerateSuccessResult("ثبت", newClient.ClientCode) :
                     GenerateFaidResult("ثبت");
             }
             catch (Exception e)
@@ -49,6 +56,12 @@ namespace FileMaker.Service.Implements.Modules.Clients
             }
         }
 
+        /// <summary>
+        /// سرویس دریافت اطلاعات اولیه کلاینت
+        /// Client Base Info Get Service
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Result> GetClientBaseInfoByClientCode(int id)
         {
             var result = await UnitOfWork.ClientRepository.GetClientBaseInfoByClientCode(id);
@@ -78,6 +91,12 @@ namespace FileMaker.Service.Implements.Modules.Clients
             return GenerateSuccessResult("دریافت", viewModel);
         }
 
+        /// <summary>
+        /// سرویس به روز رسانی اطلاعات اولیه کلاینت
+        /// Client Base Info Update Service
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         public async Task<Result> UpdateClientBaseInfoAsyn(UpdateClientBaseInfoCommand command)
         {
             var selectedClient = await UnitOfWork.ClientRepository.GetClientInfoByClientCode(command.ClientCode);
@@ -102,10 +121,16 @@ namespace FileMaker.Service.Implements.Modules.Clients
 
             UnitOfWork.Update(selectedClient);
             var result = await UnitOfWork.CompleteAsync();
-            return result == 0 ? GenerateSuccessResult("ویرایش ", null) :
+            return result != 0 ? GenerateSuccessResult("ویرایش ", null) :
                 GenerateFaidResult("ویرایش ");
         }
 
+        /// <summary>
+        /// سرویس ثبت اطلاعات تماس کلاینت
+        /// Client Contact Info Create Service
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         public async Task<Result> CreateClientContactInfoAsyn(CreateClientContactInfoCommand command)
         {
 
@@ -146,6 +171,12 @@ namespace FileMaker.Service.Implements.Modules.Clients
                 GenerateFaidResult("ویرایش ");
         }
 
+        /// <summary>
+        /// سرویس دریافت تمامی اطلاعات کلاینت
+        /// Client All Info Get Service
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Result> GetClientInfoByClientCode(int id)
         {
             var selectedClient = await UnitOfWork.ClientRepository.GetClientInfoByClientCode(id);
@@ -187,7 +218,7 @@ namespace FileMaker.Service.Implements.Modules.Clients
             return GenerateSuccessResult("دریافت", viewModel);
         }
 
-        private  void GenerateClientPurchaseViewModel(ClientInfoViewModel viewModel, Client selectedClient)
+        private void GenerateClientPurchaseViewModel(ClientInfoViewModel viewModel, Client selectedClient)
         {
             viewModel.ClientPurchase = new ClientPurchaseViewModel()
             {
@@ -201,7 +232,7 @@ namespace FileMaker.Service.Implements.Modules.Clients
             };
         }
 
-        private  void GenerateClientPaymentViewModel(ClientInfoViewModel viewModel, Client selectedClient)
+        private void GenerateClientPaymentViewModel(ClientInfoViewModel viewModel, Client selectedClient)
         {
             viewModel.ClientPayment = new ClientPaymentViewModel()
             {
@@ -219,7 +250,7 @@ namespace FileMaker.Service.Implements.Modules.Clients
             };
         }
 
-        private  void GenerateClientExtraInformationViewModel(ClientInfoViewModel viewModel, Client selectedClient)
+        private void GenerateClientExtraInformationViewModel(ClientInfoViewModel viewModel, Client selectedClient)
         {
             viewModel.ClientExtraInformation = new ClientExtraInformationViewModel()
             {
@@ -295,7 +326,7 @@ namespace FileMaker.Service.Implements.Modules.Clients
             };
         }
 
-        public async Task<Result> CreateClientPurchaceInfoAsyn(CreateClientPurchaceInformationCommand command)
+        public async Task<Result> CreateClientPurchaceInfoAsyn(CreateClientPurchaceInfoCommand command)
         {
             var selectedClient = await UnitOfWork.ClientRepository.GetClientBaseInfoByClientCode(command.ClientCode);
             if (selectedClient == null)
@@ -333,6 +364,91 @@ namespace FileMaker.Service.Implements.Modules.Clients
                 ReferralFor = command.ClientPayment.ReferralFor,
                 ReferralTel = command.ClientPayment.ReferralTel,
                 Therapist = command.ClientPayment.Therapist
+            };
+
+            UnitOfWork.Update(selectedClient);
+            var result = await UnitOfWork.CompleteAsync();
+            return result != 0 ? GenerateSuccessResult("ویرایش ", null) :
+                GenerateFaidResult("ویرایش ");
+        }
+
+        public async Task<Result> UpdateClientPurchaceInfoAsyn(UpdateClientPurchaceInfoCommand command)
+        {
+            var selectedClient = await UnitOfWork.ClientRepository.GetClientBaseInfoByClientCode(command.ClientCode);
+            if (selectedClient == null)
+                return GenerateFaidResult("کلاینت مورد نظر یافت نشد");
+
+            selectedClient.ClientPurchase = new ClientPurchase()
+            {
+                Balance = command.ClientPurchaceInformation.Balance,
+                Credit = command.ClientPurchaceInformation.Credit,
+                Discount = command.ClientPurchaceInformation.Discount,
+                PaymentMethod = command.ClientPurchaceInformation.PaymentMethod,
+                PaymentTerms = command.ClientPurchaceInformation.PaymentTerms,
+                Pricing = command.ClientPurchaceInformation.Pricing,
+                Vat = command.ClientPurchaceInformation.Vat
+            };
+
+            selectedClient.ClientExtraInformation = new ClientExtraInformation()
+            {
+                ContactNumber = command.ClientExtraInformation.ContactNumber,
+                Name = command.ClientExtraInformation.Name,
+                Ntk = command.ClientExtraInformation.Ntk,
+                RelationShip = command.ClientExtraInformation.RelationShip
+            };
+
+            selectedClient.ClientPayment = new ClientPayment()
+            {
+                Name = command.ClientPayment.Name,
+                DateOfReferral = command.ClientPayment.DateOfReferral,
+                GpsAddress = command.ClientPayment.GpsAddress,
+                GpsName = command.ClientPayment.GpsName,
+                GpsNumber = command.ClientPayment.GpsNumber,
+                OtherReqirments = command.ClientPayment.OtherReqirments,
+                ReasonForRefrral = command.ClientPayment.ReasonForRefrral,
+                ReferralBy = command.ClientPayment.ReferralBy,
+                ReferralFor = command.ClientPayment.ReferralFor,
+                ReferralTel = command.ClientPayment.ReferralTel,
+                Therapist = command.ClientPayment.Therapist
+            };
+
+            UnitOfWork.Update(selectedClient);
+            var result = await UnitOfWork.CompleteAsync();
+            return result != 0 ? GenerateSuccessResult("ویرایش ", null) :
+                GenerateFaidResult("ویرایش ");
+        }
+
+        public async Task<Result> UpdateClientContactInfoAsyn(UpdateClientContactInfoCommand command)
+        {
+            var selectedClient = await UnitOfWork.ClientRepository.GetClientBaseInfoByClientCode(command.ClientCode);
+            if (selectedClient == null)
+                return GenerateFaidResult("کلاینت مورد نظر یافت نشد");
+            selectedClient.ClientAddress = new ClientAddress()
+            {
+                Address = command.ClientAddress.Address,
+                BussinesAddress = command.ClientAddress.BussinesAddress,
+                City = command.ClientAddress.City,
+                PostalCode = command.ClientAddress.PostalCode,
+                Town = command.ClientAddress.Town
+            };
+            selectedClient.ClientDeliveryAddress = new ClientDeliveryAddress()
+            {
+                PostalCode = command.ClientDeliveryAddress.PostalCode,
+                Town = command.ClientDeliveryAddress.Town,
+                Address = command.ClientDeliveryAddress.Address,
+                City = command.ClientDeliveryAddress.City,
+                Name = command.ClientDeliveryAddress.Name,
+                PhoneNumber = command.ClientDeliveryAddress.PhoneNumber
+            };
+            selectedClient.ClientContact = new ClientContact()
+            {
+                PhoneNumber = command.ClientContact.PhoneNumber,
+                ContactType = command.ClientContact.ContactType,
+                EmailAddress = command.ClientContact.EmailAddress,
+                HomeNumber = command.ClientContact.HomeNumber,
+                MobileNumber = command.ClientContact.MobileNumber,
+                OkToContact = command.ClientContact.OkToContact,
+                Website = command.ClientContact.Website
             };
 
             UnitOfWork.Update(selectedClient);

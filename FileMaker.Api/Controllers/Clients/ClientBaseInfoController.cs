@@ -27,8 +27,7 @@ namespace FileMaker.Api.Controllers.Clients
             var result = await _clientServices.CreateClientBaseInfoAsyn(command);
             return result.Type == ResultType.Success ? Ok(result.Data) : Problem(result.Message);
         }
-
-
+        
 
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] UpdateClientBaseInfoCommand command)

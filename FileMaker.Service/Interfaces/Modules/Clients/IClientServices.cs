@@ -17,6 +17,10 @@ namespace FileMaker.Service.Interfaces.Modules.Clients
 
         Task<Result> GetClientInfoByClientCode(int id);
 
-        Task<Result> CreateClientPurchaceInfoAsyn(CreateClientPurchaceInformationCommand command);
+        Task<Result> CreateClientPurchaceInfoAsyn(CreateClientPurchaceInfoCommand command);
+
+        Task<Result> UpdateClientPurchaceInfoAsyn(UpdateClientPurchaceInfoCommand command);
+        
+        Task<Result> UpdateClientContactInfoAsyn(UpdateClientContactInfoCommand command);
     }
 }

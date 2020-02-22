@@ -1,10 +1,10 @@
 ﻿namespace FileMaker.Commands.Modules.Clients
 {
-    public class CreateClientPurchaceInformationCommand
+    public class CreateClientPurchaceInfoCommand
     {
         public int ClientCode { get; set; }
 
-        public ClientPurchaceInformationCommand ClientPurchaceInformation { get; set; }
+        public ClientPurchaceInfoCommand ClientPurchaceInformation { get; set; }
 
         public ClientExtraInformationCommand ClientExtraInformation { get; set; }
 

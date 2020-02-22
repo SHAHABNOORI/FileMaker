@@ -27,5 +27,12 @@ namespace FileMaker.Api.Controllers.Clients
             return result.Type == ResultType.Success ? Ok(result.Data) : Problem(result.Message);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] UpdateClientContactInfoCommand command)
+        {
+            var result = await _clientServices.UpdateClientContactInfoAsyn(command);
+            return result.Type == ResultType.Success ? Ok(result.Data) : Problem(result.Message);
+        }
+
     }
 }
