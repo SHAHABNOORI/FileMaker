@@ -378,39 +378,42 @@ namespace FileMaker.Service.Implements.Modules.Clients
             if (selectedClient == null)
                 return GenerateFaidResult("کلاینت مورد نظر یافت نشد");
 
-            selectedClient.ClientPurchase = new ClientPurchase()
-            {
-                Balance = command.ClientPurchaceInformation.Balance,
-                Credit = command.ClientPurchaceInformation.Credit,
-                Discount = command.ClientPurchaceInformation.Discount,
-                PaymentMethod = command.ClientPurchaceInformation.PaymentMethod,
-                PaymentTerms = command.ClientPurchaceInformation.PaymentTerms,
-                Pricing = command.ClientPurchaceInformation.Pricing,
-                Vat = command.ClientPurchaceInformation.Vat
-            };
 
-            selectedClient.ClientExtraInformation = new ClientExtraInformation()
+            if (command.ClientPurchaceInformation != null)
             {
-                ContactNumber = command.ClientExtraInformation.ContactNumber,
-                Name = command.ClientExtraInformation.Name,
-                Ntk = command.ClientExtraInformation.Ntk,
-                RelationShip = command.ClientExtraInformation.RelationShip
-            };
+                selectedClient.ClientPurchase.Balance = command.ClientPurchaceInformation.Balance;
+                selectedClient.ClientPurchase.Credit = command.ClientPurchaceInformation.Credit;
+                selectedClient.ClientPurchase.Discount = command.ClientPurchaceInformation.Discount;
+                selectedClient.ClientPurchase.PaymentMethod = command.ClientPurchaceInformation.PaymentMethod;
+                selectedClient.ClientPurchase.PaymentTerms = command.ClientPurchaceInformation.PaymentTerms;
+                selectedClient.ClientPurchase.Pricing = command.ClientPurchaceInformation.Pricing;
+                selectedClient.ClientPurchase.Vat = command.ClientPurchaceInformation.Vat;
+            }
 
-            selectedClient.ClientPayment = new ClientPayment()
+            if (command.ClientExtraInformation != null)
             {
-                Name = command.ClientPayment.Name,
-                DateOfReferral = command.ClientPayment.DateOfReferral,
-                GpsAddress = command.ClientPayment.GpsAddress,
-                GpsName = command.ClientPayment.GpsName,
-                GpsNumber = command.ClientPayment.GpsNumber,
-                OtherReqirments = command.ClientPayment.OtherReqirments,
-                ReasonForRefrral = command.ClientPayment.ReasonForRefrral,
-                ReferralBy = command.ClientPayment.ReferralBy,
-                ReferralFor = command.ClientPayment.ReferralFor,
-                ReferralTel = command.ClientPayment.ReferralTel,
-                Therapist = command.ClientPayment.Therapist
-            };
+                selectedClient.ClientExtraInformation.ContactNumber = command.ClientExtraInformation.ContactNumber;
+                selectedClient.ClientExtraInformation.Name = command.ClientExtraInformation.Name;
+                selectedClient.ClientExtraInformation.Ntk = command.ClientExtraInformation.Ntk;
+                selectedClient.ClientExtraInformation.RelationShip = command.ClientExtraInformation.RelationShip;
+            }
+
+            if (command.ClientPayment != null)
+            {
+                selectedClient.ClientPayment.Name = command.ClientPayment.Name;
+                selectedClient.ClientPayment.DateOfReferral = command.ClientPayment.DateOfReferral;
+                selectedClient.ClientPayment.GpsAddress = command.ClientPayment.GpsAddress;
+                selectedClient.ClientPayment.GpsName = command.ClientPayment.GpsName;
+                selectedClient.ClientPayment.GpsNumber = command.ClientPayment.GpsNumber;
+                selectedClient.ClientPayment.OtherReqirments = command.ClientPayment.OtherReqirments;
+                selectedClient.ClientPayment.ReasonForRefrral = command.ClientPayment.ReasonForRefrral;
+                selectedClient.ClientPayment.ReferralBy = command.ClientPayment.ReferralBy;
+                selectedClient.ClientPayment.ReferralFor = command.ClientPayment.ReferralFor;
+                selectedClient.ClientPayment.ReferralTel = command.ClientPayment.ReferralTel;
+                selectedClient.ClientPayment.Therapist = command.ClientPayment.Therapist;
+            }
+
+
 
             UnitOfWork.Update(selectedClient);
             var result = await UnitOfWork.CompleteAsync();
@@ -420,41 +423,55 @@ namespace FileMaker.Service.Implements.Modules.Clients
 
         public async Task<Result> UpdateClientContactInfoAsyn(UpdateClientContactInfoCommand command)
         {
-            var selectedClient = await UnitOfWork.ClientRepository.GetClientBaseInfoByClientCode(command.ClientCode);
-            if (selectedClient == null)
-                return GenerateFaidResult("کلاینت مورد نظر یافت نشد");
-            selectedClient.ClientAddress = new ClientAddress()
+            try
             {
-                Address = command.ClientAddress.Address,
-                BussinesAddress = command.ClientAddress.BussinesAddress,
-                City = command.ClientAddress.City,
-                PostalCode = command.ClientAddress.PostalCode,
-                Town = command.ClientAddress.Town
-            };
-            selectedClient.ClientDeliveryAddress = new ClientDeliveryAddress()
-            {
-                PostalCode = command.ClientDeliveryAddress.PostalCode,
-                Town = command.ClientDeliveryAddress.Town,
-                Address = command.ClientDeliveryAddress.Address,
-                City = command.ClientDeliveryAddress.City,
-                Name = command.ClientDeliveryAddress.Name,
-                PhoneNumber = command.ClientDeliveryAddress.PhoneNumber
-            };
-            selectedClient.ClientContact = new ClientContact()
-            {
-                PhoneNumber = command.ClientContact.PhoneNumber,
-                ContactType = command.ClientContact.ContactType,
-                EmailAddress = command.ClientContact.EmailAddress,
-                HomeNumber = command.ClientContact.HomeNumber,
-                MobileNumber = command.ClientContact.MobileNumber,
-                OkToContact = command.ClientContact.OkToContact,
-                Website = command.ClientContact.Website
-            };
+                var selectedClient = await UnitOfWork.ClientRepository.GetClientInfoByClientCode(command.ClientCode);
+                if (selectedClient == null)
+                    return GenerateFaidResult("کلاینت مورد نظر یافت نشد");
 
-            UnitOfWork.Update(selectedClient);
-            var result = await UnitOfWork.CompleteAsync();
-            return result != 0 ? GenerateSuccessResult("ویرایش ", null) :
-                GenerateFaidResult("ویرایش ");
+                if (command.ClientAddress != null)
+                {
+                    selectedClient.ClientAddress.Address = command.ClientAddress.Address;
+                    selectedClient.ClientAddress.BussinesAddress = command.ClientAddress.BussinesAddress;
+                    selectedClient.ClientAddress.City = command.ClientAddress.City;
+                    selectedClient.ClientAddress.PostalCode = command.ClientAddress.PostalCode;
+                    selectedClient.ClientAddress.Town = command.ClientAddress.Town;
+                }
+
+
+                if (command.ClientDeliveryAddress != null)
+                {
+                    selectedClient.ClientDeliveryAddress.PostalCode = command.ClientDeliveryAddress.PostalCode;
+                    selectedClient.ClientDeliveryAddress.Town = command.ClientDeliveryAddress.Town;
+                    selectedClient.ClientDeliveryAddress.Address = command.ClientDeliveryAddress.Address;
+                    selectedClient.ClientDeliveryAddress.City = command.ClientDeliveryAddress.City;
+                    selectedClient.ClientDeliveryAddress.Name = command.ClientDeliveryAddress.Name;
+                    selectedClient.ClientDeliveryAddress.PhoneNumber = command.ClientDeliveryAddress.PhoneNumber;
+                }
+
+
+                if (command.ClientContact != null)
+                {
+                    selectedClient.ClientContact.PhoneNumber = command.ClientContact.PhoneNumber;
+                    selectedClient.ClientContact.ContactType = command.ClientContact.ContactType;
+                    selectedClient.ClientContact.EmailAddress = command.ClientContact.EmailAddress;
+                    selectedClient.ClientContact.HomeNumber = command.ClientContact.HomeNumber;
+                    selectedClient.ClientContact.MobileNumber = command.ClientContact.MobileNumber;
+                    selectedClient.ClientContact.OkToContact = command.ClientContact.OkToContact;
+                    selectedClient.ClientContact.Website = command.ClientContact.Website;
+                }
+
+
+                UnitOfWork.Update(selectedClient);
+                var result = await UnitOfWork.CompleteAsync();
+                return result != 0 ? GenerateSuccessResult("ویرایش ", null) :
+                    GenerateFaidResult("ویرایش ");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }
