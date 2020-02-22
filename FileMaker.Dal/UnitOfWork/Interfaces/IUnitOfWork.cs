@@ -10,6 +10,8 @@ namespace FileMaker.Dal.UnitOfWork.Interfaces
         IClientRepository ClientRepository { get; }
         ILanguagesRepository LanguagesRepository { get; }
         IOriginsRepository OriginsRepository { get; }
+        ISkillRepository SkillRepository { get; }
+        IDegreeRepository DegreeRepository { get; }
 
         #endregion
 

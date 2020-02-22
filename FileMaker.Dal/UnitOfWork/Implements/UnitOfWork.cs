@@ -17,11 +17,15 @@ namespace FileMaker.Dal.UnitOfWork.Implements
             LanguagesRepository = new LanguagesRepository(_context);
             ClientRepository = new ClientRepository(_context);
             OriginsRepository = new OriginsRepository(_context);
+            SkillRepository = new SkillRepository(_context);
+            DegreeRepository = new DegreeRepository(_context);
         }
 
         public IClientRepository ClientRepository { get; }
         public ILanguagesRepository LanguagesRepository { get; }
         public IOriginsRepository OriginsRepository { get; }
+        public ISkillRepository SkillRepository { get; }
+        public IDegreeRepository DegreeRepository { get; }
 
         public void Update<TEntity>(TEntity entity)
         {

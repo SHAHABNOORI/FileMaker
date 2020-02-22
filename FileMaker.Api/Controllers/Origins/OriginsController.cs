@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
+using FileMaker.Commands.Modules.Degrees;
 using FileMaker.Commands.Modules.Languages;
 using FileMaker.Commands.Modules.Origins;
 using FileMaker.Infrastructure.Enums;
+using FileMaker.Service.Interfaces.Modules.Degrees;
 using FileMaker.Service.Interfaces.Modules.Origins;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,28 +11,27 @@ namespace FileMaker.Api.Controllers.Origins
 {
     [ApiController]
     [Route("[controller]")]
-    public class OriginsController : ControllerBase
+    public class DegreesController : ControllerBase
     {
-        private readonly IOriginsService _originsService;
+        private readonly IDegreeServices _degreeServices;
 
-        public OriginsController(IOriginsService originsService)
+        public DegreesController(IDegreeServices degreeServices)
         {
-            _originsService = originsService;
+            _degreeServices = degreeServices;
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateOriginCommand command)
+        public async Task<IActionResult> Post([FromBody] CreateDegreeCommand command)
         {
-            var result = await _originsService.CreateOriginAsyn(command);
+            var result = await _degreeServices.CreateDegreeAsync(command);
             return result.Type == ResultType.Success ? Ok(result.Data) : Problem(result.Message);
         }
 
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] UpdateOriginCommand command)
+        public async Task<IActionResult> Put([FromBody] UpdateDegreeCommand command)
         {
-            var result = await _originsService.UpdateOriginAsyn(command);
+            var result = await _degreeServices.UpdateDegreeAsync(command);
             return result.Type == ResultType.Success ? Ok(result.Data) : Problem(result.Message);
         }
     }

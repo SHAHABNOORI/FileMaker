@@ -10,8 +10,8 @@ namespace FileMaker.Service.Interfaces.Modules.Languages
 
         Task<Result> GetLanguageByIdAsync(int id);
 
-        Task<Result> CreateLanguageAsyn(CreateLanguageCommand command);
+        Task<Result> CreateLanguageAsync(CreateLanguageCommand command);
 
-        Task<Result> UpdateLanguageAsyn(UpdateLanguageCommand command);
+        Task<Result> UpdateLanguageAsync(UpdateLanguageCommand command);
     }
 }

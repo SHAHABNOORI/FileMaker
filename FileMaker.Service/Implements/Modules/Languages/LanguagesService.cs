@@ -39,7 +39,7 @@ namespace FileMaker.Service.Implements.Modules.Languages
             return GenerateSuccessResult("دریافت", result);
         }
 
-        public async Task<Result> CreateLanguageAsyn(CreateLanguageCommand command)
+        public async Task<Result> CreateLanguageAsync(CreateLanguageCommand command)
         {
             var exist = UnitOfWork.LanguagesRepository.Any(language =>
                 language.LanguageName == command.LanguageName);
@@ -55,7 +55,7 @@ namespace FileMaker.Service.Implements.Modules.Languages
                 GenerateFaidResult("ثبت");
         }
 
-        public async Task<Result> UpdateLanguageAsyn(UpdateLanguageCommand command)
+        public async Task<Result> UpdateLanguageAsync(UpdateLanguageCommand command)
         {
             var exist = await UnitOfWork.LanguagesRepository.FirstOrDefaultAsync(
                 language => language.Id == command.Id);

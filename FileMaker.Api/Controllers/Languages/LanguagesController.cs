@@ -23,7 +23,7 @@ namespace FileMaker.Api.Controllers.Languages
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateLanguageCommand command)
         {
-            var result = await _languagesService.CreateLanguageAsyn(command);
+            var result = await _languagesService.CreateLanguageAsync(command);
             return result.Type == ResultType.Success ? Ok(result.Data) : Problem(result.Message);
         }
 
@@ -31,7 +31,7 @@ namespace FileMaker.Api.Controllers.Languages
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] UpdateLanguageCommand command)
         {
-            var result = await _languagesService.UpdateLanguageAsyn(command);
+            var result = await _languagesService.UpdateLanguageAsync(command);
             return result.Type == ResultType.Success ? Ok(result.Data) : Problem(result.Message);
         }
     }
