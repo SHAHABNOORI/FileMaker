@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using FileMaker.Infrastructure.Enums;
 using FileMaker.Service.Interfaces.Modules.Degrees;
-using FileMaker.Service.Interfaces.Modules.Origins;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FileMaker.Api.Controllers.Degrees
