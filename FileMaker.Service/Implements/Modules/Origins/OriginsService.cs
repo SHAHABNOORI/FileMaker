@@ -49,7 +49,7 @@ namespace FileMaker.Service.Implements.Modules.Origins
             });
 
             var result = await UnitOfWork.CompleteAsync();
-            return result == 1 ? GenerateSuccessResult("ثبت", null) :
+            return result !=0 ? GenerateSuccessResult("ثبت", null) :
                 GenerateFaidResult("ثبت");
         }
 
@@ -62,7 +62,7 @@ namespace FileMaker.Service.Implements.Modules.Origins
             exist.OriginName = command.OriginName;
             UnitOfWork.Update(exist);
             var result = await UnitOfWork.CompleteAsync();
-            return result == 1 ? GenerateSuccessResult("ویرایش", exist) :
+            return result !=0 ? GenerateSuccessResult("ویرایش", exist) :
                 GenerateFaidResult("ویرایش");
 
         }
