@@ -32,6 +32,8 @@ namespace FileMaker.Domain.Models
         
         public virtual Language Language { get; set; }
 
+        public virtual Education Education { get; set; }
+
         public virtual ICollection<EmployeeSkill> EmployeeSkills { get; set; }
 
         public virtual ICollection<EmployeeDegree> EmployeeDegrees { get; set; }

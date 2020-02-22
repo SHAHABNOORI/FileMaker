@@ -56,6 +56,11 @@ namespace FileMaker.Domain.Contexts
                 entity.HasKey(e => e.Id);
             });
 
+            modelBuilder.Entity<Education>(entity =>
+            {
+                entity.HasKey(e => e.EduacationId);
+            });
+
             modelBuilder.Entity<Employee>(entity =>
             {
                 entity.HasKey(e => e.EmployeeNumber);

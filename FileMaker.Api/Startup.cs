@@ -4,11 +4,15 @@ using FileMaker.Dal.UnitOfWork.Implements;
 using FileMaker.Dal.UnitOfWork.Interfaces;
 using FileMaker.Domain.Contexts;
 using FileMaker.Service.Implements.Modules.Clients;
+using FileMaker.Service.Implements.Modules.Degrees;
 using FileMaker.Service.Implements.Modules.Languages;
 using FileMaker.Service.Implements.Modules.Origins;
+using FileMaker.Service.Implements.Modules.Skills;
 using FileMaker.Service.Interfaces.Modules.Clients;
+using FileMaker.Service.Interfaces.Modules.Degrees;
 using FileMaker.Service.Interfaces.Modules.Languages;
 using FileMaker.Service.Interfaces.Modules.Origins;
+using FileMaker.Service.Interfaces.Modules.Skills;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +42,8 @@ namespace FileMaker.Api
             services.AddTransient<ILanguagesService, LanguagesService>();
             services.AddTransient<IOriginsService, OriginsService>();
             services.AddTransient<IClientServices,ClientServices>();
+            services.AddTransient<ISkillServices, SkillServices>();
+            services.AddTransient<IDegreeServices, DegreeServices>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
             services.AddSwaggerGen(c =>

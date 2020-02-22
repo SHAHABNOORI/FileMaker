@@ -43,9 +43,9 @@ namespace FileMaker.Service.Implements.Modules.Skills
                 origin.OriginName == command.SkillName);
             if (exist) return GenerateBussimessFaidResult("عنوان انتخاب شده تکراری می باشد");
 
-            await UnitOfWork.OriginsRepository.AddAsync(new Origin()
+            await UnitOfWork.SkillRepository.AddAsync(new Skill()
             {
-                OriginName = command.SkillName
+                SkillName = command.SkillName
             });
 
             var result = await UnitOfWork.CompleteAsync();
