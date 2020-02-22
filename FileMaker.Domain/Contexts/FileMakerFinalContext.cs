@@ -38,6 +38,8 @@ namespace FileMaker.Domain.Contexts
 
         public DbSet<Degree> Degrees { get; set; }
 
+        public DbSet<Education> Educations { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -58,7 +60,7 @@ namespace FileMaker.Domain.Contexts
 
             modelBuilder.Entity<Education>(entity =>
             {
-                entity.HasKey(e => e.EduacationId);
+                entity.HasKey(e => e.EducationId);
             });
 
             modelBuilder.Entity<Employee>(entity =>

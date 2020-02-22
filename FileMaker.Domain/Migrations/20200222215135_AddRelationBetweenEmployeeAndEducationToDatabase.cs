@@ -2,41 +2,41 @@
 
 namespace FileMaker.Domain.Migrations
 {
-    public partial class AddRelationBetweenEmployeeAndEducation : Migration
+    public partial class AddRelationBetweenEmployeeAndEducationToDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "EducationEduacationId",
+                name: "EducationId",
                 table: "Employees",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_EducationEduacationId",
+                name: "IX_Employees_EducationId",
                 table: "Employees",
-                column: "EducationEduacationId");
+                column: "EducationId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Employees_Education_EducationEduacationId",
+                name: "FK_Employees_Educations_EducationId",
                 table: "Employees",
-                column: "EducationEduacationId",
-                principalTable: "Education",
-                principalColumn: "EduacationId",
+                column: "EducationId",
+                principalTable: "Educations",
+                principalColumn: "EducationId",
                 onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Employees_Education_EducationEduacationId",
+                name: "FK_Employees_Educations_EducationId",
                 table: "Employees");
 
             migrationBuilder.DropIndex(
-                name: "IX_Employees_EducationEduacationId",
+                name: "IX_Employees_EducationId",
                 table: "Employees");
 
             migrationBuilder.DropColumn(
-                name: "EducationEduacationId",
+                name: "EducationId",
                 table: "Employees");
         }
     }

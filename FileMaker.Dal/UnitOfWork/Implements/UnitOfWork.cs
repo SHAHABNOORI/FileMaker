@@ -14,6 +14,7 @@ namespace FileMaker.Dal.UnitOfWork.Implements
         public UnitOfWork(FileMakerFinalContext context)
         {
             _context = context;
+            EducationRepository = new EducationRepository(_context);
             LanguagesRepository = new LanguagesRepository(_context);
             ClientRepository = new ClientRepository(_context);
             OriginsRepository = new OriginsRepository(_context);
@@ -26,6 +27,7 @@ namespace FileMaker.Dal.UnitOfWork.Implements
         public IOriginsRepository OriginsRepository { get; }
         public ISkillRepository SkillRepository { get; }
         public IDegreeRepository DegreeRepository { get; }
+        public IEducationRepository EducationRepository { get; }
 
         public void Update<TEntity>(TEntity entity)
         {

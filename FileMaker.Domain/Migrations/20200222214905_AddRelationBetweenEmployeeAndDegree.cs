@@ -7,6 +7,19 @@ namespace FileMaker.Domain.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Education",
+                columns: table => new
+                {
+                    EducationId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EducationName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Education", x => x.EducationId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EmployeeDegree",
                 columns: table => new
                 {
@@ -38,6 +51,9 @@ namespace FileMaker.Domain.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Education");
+
             migrationBuilder.DropTable(
                 name: "EmployeeDegree");
         }

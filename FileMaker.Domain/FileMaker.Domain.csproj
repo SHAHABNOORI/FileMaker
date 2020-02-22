@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200222184629_AddRelationBetweenEmployeeAndDegree.cs" />
+    <Compile Remove="Migrations\20200222184629_AddRelationBetweenEmployeeAndDegree.Designer.cs" />
+    <Compile Remove="Migrations\20200222214147_AddEducationModelToDataBase.cs" />
+    <Compile Remove="Migrations\20200222214147_AddEducationModelToDataBase.Designer.cs" />
+    <Compile Remove="Migrations\20200222214403_AddEducationsModelToDataBase.cs" />
+    <Compile Remove="Migrations\20200222214403_AddEducationsModelToDataBase.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

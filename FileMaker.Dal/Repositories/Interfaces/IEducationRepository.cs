@@ -1,7 +1,9 @@
-﻿namespace FileMaker.Dal.Repositories.Interfaces
+﻿using FileMaker.Domain.Models;
+
+namespace FileMaker.Dal.Repositories.Interfaces
 {
-    public interface IEducationRepository
+    public interface IEducationRepository : IRepository<Education>
     {
-        
+
     }
 }

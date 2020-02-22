@@ -322,17 +322,17 @@ namespace FileMaker.Domain.Migrations
 
             modelBuilder.Entity("FileMaker.Domain.Models.Education", b =>
                 {
-                    b.Property<int>("EduacationId")
+                    b.Property<int>("EducationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("EduacationName")
+                    b.Property<string>("EducationName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EduacationId");
+                    b.HasKey("EducationId");
 
-                    b.ToTable("Education");
+                    b.ToTable("Educations");
                 });
 
             modelBuilder.Entity("FileMaker.Domain.Models.Employee", b =>
@@ -345,7 +345,7 @@ namespace FileMaker.Domain.Migrations
                     b.Property<DateTime?>("Dob")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("EducationEduacationId")
+                    b.Property<int?>("EducationId")
                         .HasColumnType("int");
 
                     b.Property<int>("Gender")
@@ -383,7 +383,7 @@ namespace FileMaker.Domain.Migrations
 
                     b.HasKey("EmployeeNumber");
 
-                    b.HasIndex("EducationEduacationId");
+                    b.HasIndex("EducationId");
 
                     b.HasIndex("LanguageId");
 
@@ -536,7 +536,7 @@ namespace FileMaker.Domain.Migrations
                 {
                     b.HasOne("FileMaker.Domain.Models.Education", "Education")
                         .WithMany("Employees")
-                        .HasForeignKey("EducationEduacationId");
+                        .HasForeignKey("EducationId");
 
                     b.HasOne("FileMaker.Domain.Models.Language", "Language")
                         .WithMany("Employees")

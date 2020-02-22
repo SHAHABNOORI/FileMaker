@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileMaker.Domain.Migrations
 {
     [DbContext(typeof(FileMakerFinalContext))]
-    [Migration("20200222211751_AddEducationModelToDataBase")]
-    partial class AddEducationModelToDataBase
+    [Migration("20200222214905_AddRelationBetweenEmployeeAndDegree")]
+    partial class AddRelationBetweenEmployeeAndDegree
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -324,15 +324,15 @@ namespace FileMaker.Domain.Migrations
 
             modelBuilder.Entity("FileMaker.Domain.Models.Education", b =>
                 {
-                    b.Property<int>("EduacationId")
+                    b.Property<int>("EducationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("EduacationName")
+                    b.Property<string>("EducationName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EduacationId");
+                    b.HasKey("EducationId");
 
                     b.ToTable("Education");
                 });

@@ -12,6 +12,7 @@ namespace FileMaker.Dal.UnitOfWork.Interfaces
         IOriginsRepository OriginsRepository { get; }
         ISkillRepository SkillRepository { get; }
         IDegreeRepository DegreeRepository { get; }
+        IEducationRepository EducationRepository { get; }
 
         #endregion
 
