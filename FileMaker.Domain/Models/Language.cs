@@ -2,17 +2,14 @@
 
 namespace FileMaker.Domain.Models
 {
-    public sealed class Language
+    public class Language
     {
-        public Language()
-        {
-            Client = new HashSet<Client>();
-        }
-
         public int Id { get; set; }
 
         public string LanguageName { get; set; }
 
-        public ICollection<Client> Client { get; set; }
+        public virtual ICollection<Client> Client { get; set; }
+
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }

@@ -9,5 +9,7 @@ namespace FileMaker.Domain.Models
         public string OriginName { get; set; }
 
         public virtual ICollection<Client> Clients { get; set; }
+
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }

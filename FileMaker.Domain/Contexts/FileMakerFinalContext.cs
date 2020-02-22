@@ -32,6 +32,12 @@ namespace FileMaker.Domain.Contexts
 
         public DbSet<ClientPayment> ClientPayments { get; set; }
 
+        public DbSet<Employee> Employees { get; set; }
+
+        public DbSet<Skill> Skills { get; set; }
+
+        public DbSet<Degree> Degrees { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,9 +56,24 @@ namespace FileMaker.Domain.Contexts
                 entity.HasKey(e => e.Id);
             });
 
+            modelBuilder.Entity<Employee>(entity =>
+            {
+                entity.HasKey(e => e.EmployeeNumber);
+            });
+
             modelBuilder.Entity<ClientContact>(entity =>
             {
                 entity.HasKey(e => e.ClientContactId);
+            });
+
+            modelBuilder.Entity<Skill>(entity =>
+            {
+                entity.HasKey(e => e.SkillId);
+            });
+
+            modelBuilder.Entity<Degree>(entity =>
+            {
+                entity.HasKey(e => e.DegreeId);
             });
 
             modelBuilder.Entity<Client>()
@@ -112,6 +133,30 @@ namespace FileMaker.Domain.Contexts
                 .HasOne(a => a.ClientPayment)
                 .WithOne(b => b.Client)
                 .HasForeignKey<ClientPayment>(b => b.ClientCode);
+
+
+            modelBuilder.Entity<EmployeeSkill>()
+                .HasKey(es => new { es.EmployeeNumber, es.SkillId });
+            modelBuilder.Entity<EmployeeSkill>()
+                .HasOne(es => es.Employee)
+                .WithMany(b => b.EmployeeSkills)
+                .HasForeignKey(bc => bc.EmployeeNumber);
+            modelBuilder.Entity<EmployeeSkill>()
+                .HasOne(es => es.Skill)
+                .WithMany(c => c.EmployeeSkills)
+                .HasForeignKey(bc => bc.SkillId);
+
+
+            modelBuilder.Entity<EmployeeDegree>()
+                .HasKey(es => new { es.EmployeeNumber, es.DegreeId });
+            modelBuilder.Entity<EmployeeDegree>()
+                .HasOne(es => es.Employee)
+                .WithMany(b => b.EmployeeDegrees)
+                .HasForeignKey(bc => bc.EmployeeNumber);
+            modelBuilder.Entity<EmployeeDegree>()
+                .HasOne(es => es.Degree)
+                .WithMany(c => c.EmployeeDegrees)
+                .HasForeignKey(bc => bc.DegreeId);
         }
     }
 }

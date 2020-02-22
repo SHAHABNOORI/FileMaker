@@ -4,14 +4,16 @@ using FileMaker.Domain.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FileMaker.Domain.Migrations
 {
     [DbContext(typeof(FileMakerFinalContext))]
-    partial class FileMakerFinalContextModelSnapshot : ModelSnapshot
+    [Migration("20200222183813_AddRelationBetweenEmployeeAndSkill")]
+    partial class AddRelationBetweenEmployeeAndSkill
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -305,21 +307,6 @@ namespace FileMaker.Domain.Migrations
                     b.ToTable("ClientPurchases");
                 });
 
-            modelBuilder.Entity("FileMaker.Domain.Models.Degree", b =>
-                {
-                    b.Property<int>("DegreeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("DegreeName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("DegreeId");
-
-                    b.ToTable("Degrees");
-                });
-
             modelBuilder.Entity("FileMaker.Domain.Models.Employee", b =>
                 {
                     b.Property<int>("EmployeeNumber")
@@ -370,21 +357,6 @@ namespace FileMaker.Domain.Migrations
                     b.HasIndex("OriginId");
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("FileMaker.Domain.Models.EmployeeDegree", b =>
-                {
-                    b.Property<int>("EmployeeNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DegreeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EmployeeNumber", "DegreeId");
-
-                    b.HasIndex("DegreeId");
-
-                    b.ToTable("EmployeeDegree");
                 });
 
             modelBuilder.Entity("FileMaker.Domain.Models.EmployeeSkill", b =>
@@ -521,21 +493,6 @@ namespace FileMaker.Domain.Migrations
                     b.HasOne("FileMaker.Domain.Models.Origin", "Origin")
                         .WithMany("Employees")
                         .HasForeignKey("OriginId");
-                });
-
-            modelBuilder.Entity("FileMaker.Domain.Models.EmployeeDegree", b =>
-                {
-                    b.HasOne("FileMaker.Domain.Models.Degree", "Degree")
-                        .WithMany("EmployeeDegrees")
-                        .HasForeignKey("DegreeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FileMaker.Domain.Models.Employee", "Employee")
-                        .WithMany("EmployeeDegrees")
-                        .HasForeignKey("EmployeeNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("FileMaker.Domain.Models.EmployeeSkill", b =>

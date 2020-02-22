@@ -1,6 +1,6 @@
 ﻿namespace FileMaker.Infrastructure.Enums
 {
-    public enum EmployeeStatus
+    public enum ClientStatus
     {
         Active,Deactive
     }
