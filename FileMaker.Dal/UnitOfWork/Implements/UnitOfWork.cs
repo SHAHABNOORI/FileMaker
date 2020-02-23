@@ -20,6 +20,7 @@ namespace FileMaker.Dal.UnitOfWork.Implements
             OriginsRepository = new OriginsRepository(_context);
             SkillRepository = new SkillRepository(_context);
             DegreeRepository = new DegreeRepository(_context);
+            EmployeeRepository = new EmployeeRepository(_context);
         }
 
         public IClientRepository ClientRepository { get; }
@@ -28,6 +29,7 @@ namespace FileMaker.Dal.UnitOfWork.Implements
         public ISkillRepository SkillRepository { get; }
         public IDegreeRepository DegreeRepository { get; }
         public IEducationRepository EducationRepository { get; }
+        public IEmployeeRepository EmployeeRepository { get; }
 
         public void Update<TEntity>(TEntity entity)
         {

@@ -6,12 +6,14 @@ using FileMaker.Domain.Contexts;
 using FileMaker.Service.Implements.Modules.Clients;
 using FileMaker.Service.Implements.Modules.Degrees;
 using FileMaker.Service.Implements.Modules.Educations;
+using FileMaker.Service.Implements.Modules.Employees;
 using FileMaker.Service.Implements.Modules.Languages;
 using FileMaker.Service.Implements.Modules.Origins;
 using FileMaker.Service.Implements.Modules.Skills;
 using FileMaker.Service.Interfaces.Modules.Clients;
 using FileMaker.Service.Interfaces.Modules.Degrees;
 using FileMaker.Service.Interfaces.Modules.Educations;
+using FileMaker.Service.Interfaces.Modules.Employees;
 using FileMaker.Service.Interfaces.Modules.Languages;
 using FileMaker.Service.Interfaces.Modules.Origins;
 using FileMaker.Service.Interfaces.Modules.Skills;
@@ -47,6 +49,7 @@ namespace FileMaker.Api
             services.AddTransient<ISkillServices, SkillServices>();
             services.AddTransient<IDegreeServices, DegreeServices>();
             services.AddTransient<IEducationServices, EducationServices>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
