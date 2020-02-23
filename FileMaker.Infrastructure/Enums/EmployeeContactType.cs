@@ -1,6 +1,6 @@
 ﻿namespace FileMaker.Infrastructure.Enums
 {
-    public enum EmployeeContactType
+    public enum ClientContactType
     {
         One,Two,Three,Four
     }

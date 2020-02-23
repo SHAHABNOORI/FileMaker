@@ -4,14 +4,16 @@ using FileMaker.Domain.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FileMaker.Domain.Migrations
 {
     [DbContext(typeof(FileMakerFinalContext))]
-    partial class FileMakerFinalContextModelSnapshot : ModelSnapshot
+    [Migration("20200223210357_AddEmployeeContactModelToDatabase")]
+    partial class AddEmployeeContactModelToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -435,9 +437,6 @@ namespace FileMaker.Domain.Migrations
                     b.Property<string>("EmailAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EmployeeNumber")
-                        .HasColumnType("int");
-
                     b.Property<string>("MobileNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -451,9 +450,6 @@ namespace FileMaker.Domain.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EmployeeContactId");
-
-                    b.HasIndex("EmployeeNumber")
-                        .IsUnique();
 
                     b.ToTable("Contacts");
                 });
@@ -609,15 +605,6 @@ namespace FileMaker.Domain.Migrations
                     b.HasOne("FileMaker.Domain.Models.Skill", "Skill")
                         .WithMany("EmployeeSkills")
                         .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FileMaker.Domain.Models.EmployeetContact", b =>
-                {
-                    b.HasOne("FileMaker.Domain.Models.Employee", "Employee")
-                        .WithOne("EmployeetContact")
-                        .HasForeignKey("FileMaker.Domain.Models.EmployeetContact", "EmployeeNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -79,11 +79,43 @@ namespace FileMaker.Service.Implements.Modules.Employees
             throw new System.NotImplementedException();
         }
 
-        public Task<Result> UpdateEmployeePersonalInfoAsyn(UpdateEmployeePersonalInfoCommand command)
+        public async Task<Result> UpdateEmployeePersonalInfoAsyn(UpdateEmployeePersonalInfoCommand command)
         {
-            throw new System.NotImplementedException();
-        }
+            var selectedEmployee = await UnitOfWork.EmployeeRepository.GetEmployeeInfoByEmployeeNumberAsync(command.EmployeeNumber);
+            if (selectedEmployee == null)
+                return GenerateFaidResult("کارمند مورد نظر یافت نشد");
+            var selectedOrigin = await UnitOfWork.OriginsRepository.FirstOrDefaultAsync(o => o.Id == command.OriginId);
+            var selectedLanguage = await UnitOfWork.LanguagesRepository.FirstOrDefaultAsync(o => o.Id == command.LanguageId);
+            var selectedEducation = await UnitOfWork.EducationRepository.FirstOrDefaultAsync(o => o.EducationId == command.EducationId);
+            var selectedSkill = await UnitOfWork.SkillRepository.FirstOrDefaultAsync(o => o.SkillId == command.SkillId);
+            var selectedDegree = await UnitOfWork.DegreeRepository.FirstOrDefaultAsync(o => o.DegreeId == command.DegreeId);
 
+            selectedEmployee.Education = selectedEducation;
+            selectedEmployee.Name = command.Name;
+            selectedEmployee.Dob = command.Dob;
+            selectedEmployee.Gender = command.Gender;
+            selectedEmployee.Language = selectedLanguage;
+            selectedEmployee.NickName = command.NickName;
+            selectedEmployee.Title = command.Title;
+            selectedEmployee.Surname = command.Surname;
+            selectedEmployee.Status = command.Status;
+            selectedEmployee.SexualOrientation = command.SexualOrientation;
+            selectedEmployee.PassportNumber = command.PassportNumber;
+            selectedEmployee.Origin = selectedOrigin;
+            selectedEmployee.PersonalNumber = command.PersonalNumber;
+            selectedEmployee.EmployeeDegrees = new List<EmployeeDegree>();
+            selectedEmployee.EmployeeSkills = new List<EmployeeSkill>();
+            EmployeeSkill employeeSkill = new EmployeeSkill { Skill = selectedSkill, Employee = selectedEmployee };
+            selectedEmployee.EmployeeSkills.Add(employeeSkill);
+
+            EmployeeDegree employeeDegree = new EmployeeDegree { Degree = selectedDegree, Employee = selectedEmployee };
+            selectedEmployee.EmployeeDegrees.Add(employeeDegree);
+
+            UnitOfWork.Update(selectedEmployee);
+            var result = await UnitOfWork.CompleteAsync();
+            return result != 0 ? GenerateSuccessResult("ویرایش ", null) :
+                GenerateFaidResult("ویرایش ");
+        }
         public async Task<Result> GetEmployeeInfoByEmployeeNumber(int id)
         {
             var selectedEmployee = await UnitOfWork.EmployeeRepository.GetEmployeeInfoByEmployeeNumberAsync(id);

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using FileMaker.Dal.Repositories.Interfaces;
 using FileMaker.Domain.Contexts;
 using FileMaker.Domain.Models;
@@ -15,11 +16,11 @@ namespace FileMaker.Dal.Repositories.Implements
         public async Task<Employee> GetEmployeeInfoByEmployeeNumberAsync(int id)
         {
             var result = await Context.Employees
-                .Include(client => client.Education)
-                .Include(client => client.EmployeeDegrees)
-                .Include(client => client.EmployeeSkills)
-                .Include(client => client.Language)
-                .Include(client => client.Origin)
+                .Include(employee => employee.Education)
+                .Include(employee => employee.EmployeeDegrees).ThenInclude(x => x.Degree)
+                .Include(employee => employee.EmployeeSkills).ThenInclude(x => x.Skill)
+                .Include(employee => employee.Language)
+                .Include(employee => employee.Origin)
                 .FirstOrDefaultAsync(client => client.EmployeeNumber == id);
             return result;
         }

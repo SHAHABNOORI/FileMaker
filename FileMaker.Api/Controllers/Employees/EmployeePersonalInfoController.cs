@@ -27,5 +27,11 @@ namespace FileMaker.Api.Controllers.Employees
             return result.Type == ResultType.Success ? Ok(result.Data) : Problem(result.Message);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] UpdateEmployeePersonalInfoCommand command)
+        {
+            var result = await _employeeService.UpdateEmployeePersonalInfoAsyn(command);
+            return result.Type == ResultType.Success ? Ok(result.Data) : Problem(result.Message);
+        }
     }
 }
