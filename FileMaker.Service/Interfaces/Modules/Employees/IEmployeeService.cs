@@ -13,5 +13,13 @@ namespace FileMaker.Service.Interfaces.Modules.Employees
         Task<Result> UpdateEmployeePersonalInfoAsyn(UpdateEmployeePersonalInfoCommand command);
 
         Task<Result> GetEmployeeInfoByEmployeeNumber(int id);
+
+        Task<Result> CreateEmployeeContactInfoAsyn(CreateEmployeeContactInfoCommand command);
+
+        Task<Result> UpdateEmployeeContactInfoAsyn(UpdateEmployeeContactInfoCommand command);
+
+        Task<Result> CreateEmployeeRecruitmentInfoAsyn(CreateEmployeeRecruitmentInfoCommand command);
+
+        Task<Result> UpdateEmployeeRecruitmentInfoAsyn(UpdateEmployeeRecruitmentInfoCommand command);
     }
 }

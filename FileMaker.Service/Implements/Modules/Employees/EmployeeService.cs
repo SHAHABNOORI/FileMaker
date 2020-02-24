@@ -127,6 +127,26 @@ namespace FileMaker.Service.Implements.Modules.Employees
             return GenerateSuccessResult("دریافت", viewModel);
         }
 
+        public Task<Result> CreateEmployeeContactInfoAsyn(CreateEmployeeContactInfoCommand command)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Result> UpdateEmployeeContactInfoAsyn(UpdateEmployeeContactInfoCommand command)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Result> CreateEmployeeRecruitmentInfoAsyn(CreateEmployeeRecruitmentInfoCommand command)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Result> UpdateEmployeeRecruitmentInfoAsyn(UpdateEmployeeRecruitmentInfoCommand command)
+        {
+            throw new NotImplementedException();
+        }
+
         private EmployeeInfoViewModel GenerateEmployeeInfoViewModel(Employee selectedEmployee)
         {
             var viewModel = new EmployeeInfoViewModel()
