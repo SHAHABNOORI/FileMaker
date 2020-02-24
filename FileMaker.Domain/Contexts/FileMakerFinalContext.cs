@@ -40,7 +40,7 @@ namespace FileMaker.Domain.Contexts
 
         public DbSet<Education> Educations { get; set; }
 
-        public DbSet<EmployeetContact> Contacts { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
         public DbSet<EmployeeAddress> EmployeeAddresses { get; set; }
 
@@ -87,7 +87,7 @@ namespace FileMaker.Domain.Contexts
                 entity.HasKey(e => e.ClientContactId);
             });
 
-            modelBuilder.Entity<EmployeetContact>(entity =>
+            modelBuilder.Entity<Contact>(entity =>
             {
                 entity.HasKey(e => e.EmployeeContactId);
             });
@@ -218,7 +218,7 @@ namespace FileMaker.Domain.Contexts
             modelBuilder.Entity<Employee>()
                 .HasOne(a => a.EmployeetContact)
                 .WithOne(b => b.Employee)
-                .HasForeignKey<EmployeetContact>(b => b.EmployeeNumber);
+                .HasForeignKey<Contact>(b => b.EmployeeNumber);
 
             modelBuilder.Entity<Employee>()
                 .HasOne(a => a.EmployeeAddress)

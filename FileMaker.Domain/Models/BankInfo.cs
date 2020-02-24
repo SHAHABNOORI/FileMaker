@@ -6,6 +6,8 @@ namespace FileMaker.Domain.Models
     {
         public int BankInfoId { get; set; }
 
+        public string BankName { get; set; }
+
         public SortCode SortCode { get; set; }
 
         public string AccountNo { get; set; }

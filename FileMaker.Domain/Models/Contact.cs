@@ -2,13 +2,11 @@
 
 namespace FileMaker.Domain.Models
 {
-    public class EmployeetContact
+    public class Contact
     {
         public int EmployeeContactId { get; set; }
         
         public EmployeeContactType ContactType { get; set; }
-
-        public string EmailAddress { get; set; }
 
         public string PostalCode { get; set; }
 

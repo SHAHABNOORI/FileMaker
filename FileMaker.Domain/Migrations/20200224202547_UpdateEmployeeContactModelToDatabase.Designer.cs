@@ -4,14 +4,16 @@ using FileMaker.Domain.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FileMaker.Domain.Migrations
 {
     [DbContext(typeof(FileMakerFinalContext))]
-    partial class FileMakerFinalContextModelSnapshot : ModelSnapshot
+    [Migration("20200224202547_UpdateEmployeeContactModelToDatabase")]
+    partial class UpdateEmployeeContactModelToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace FileMaker.Domain.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AccountNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BankName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EmployeeNumber")

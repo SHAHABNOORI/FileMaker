@@ -6,7 +6,9 @@ namespace FileMaker.Domain.Models
     {
         public int EmployeeAddressId { get; set; }
 
-        public string Address { get; set; }
+        public string AddressOne { get; set; }
+
+        public string AddressTwo { get; set; }
 
         public Town Town { get; set; }
 

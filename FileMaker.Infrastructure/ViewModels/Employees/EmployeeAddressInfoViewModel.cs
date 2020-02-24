@@ -1,8 +1,8 @@
 ﻿using FileMaker.Infrastructure.Enums;
 
-namespace FileMaker.Commands.Modules.Employees
+namespace FileMaker.Infrastructure.ViewModels.Employees
 {
-    public class EmployeeAddressInfoCommand
+    public class EmployeeAddressInfoViewModel
     {
         public string AddressOne { get; set; }
 

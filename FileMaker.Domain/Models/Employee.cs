@@ -34,7 +34,7 @@ namespace FileMaker.Domain.Models
 
         public virtual Education Education { get; set; }
 
-        public virtual EmployeetContact EmployeetContact { get; set; }
+        public virtual Contact EmployeetContact { get; set; }
 
         public virtual EmployeeAddress EmployeeAddress { get; set; }
 

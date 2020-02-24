@@ -1,8 +1,8 @@
 ﻿using FileMaker.Infrastructure.Enums;
 
-namespace FileMaker.Commands.Modules.Employees
+namespace FileMaker.Infrastructure.ViewModels.Employees
 {
-    public class EmployeeBankInfoCommand
+    public class EmployeeBankInfoViewModel
     {
         public SortCode SortCode { get; set; }
 

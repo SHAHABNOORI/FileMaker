@@ -15,6 +15,10 @@
     <Compile Remove="Migrations\20200224045403_AddEmployeeAddressModelToDatabase.Designer.cs" />
     <Compile Remove="Migrations\20200224052113_AddWorkModelToDatabase.cs" />
     <Compile Remove="Migrations\20200224052113_AddWorkModelToDatabase.Designer.cs" />
+    <Compile Remove="Migrations\20200224201836_UpdateEmployeeContactModelNameToDatabase.cs" />
+    <Compile Remove="Migrations\20200224201836_UpdateEmployeeContactModelNameToDatabase.Designer.cs" />
+    <Compile Remove="Migrations\20200224202254_UpdateEmployeeContactModelToDatabase.cs" />
+    <Compile Remove="Migrations\20200224202254_UpdateEmployeeContactModelToDatabase.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

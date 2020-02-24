@@ -4,14 +4,16 @@ using FileMaker.Domain.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FileMaker.Domain.Migrations
 {
     [DbContext(typeof(FileMakerFinalContext))]
-    partial class FileMakerFinalContextModelSnapshot : ModelSnapshot
+    [Migration("20200224201009_UpdateEmployeeAdrressModelToDatabase")]
+    partial class UpdateEmployeeAdrressModelToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace FileMaker.Domain.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AccountNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BankName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EmployeeNumber")
@@ -338,39 +337,6 @@ namespace FileMaker.Domain.Migrations
                     b.ToTable("ClientPurchases");
                 });
 
-            modelBuilder.Entity("FileMaker.Domain.Models.Contact", b =>
-                {
-                    b.Property<int>("EmployeeContactId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ContactType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmployeeNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MobileNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OkToContact")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("EmployeeContactId");
-
-                    b.HasIndex("EmployeeNumber")
-                        .IsUnique();
-
-                    b.ToTable("Contacts");
-                });
-
             modelBuilder.Entity("FileMaker.Domain.Models.Degree", b =>
                 {
                     b.Property<int>("DegreeId")
@@ -590,6 +556,42 @@ namespace FileMaker.Domain.Migrations
                     b.ToTable("EmployeeSkill");
                 });
 
+            modelBuilder.Entity("FileMaker.Domain.Models.EmployeetContact", b =>
+                {
+                    b.Property<int>("EmployeeContactId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ContactType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EmailAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EmployeeNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MobileNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OkToContact")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EmployeeContactId");
+
+                    b.HasIndex("EmployeeNumber")
+                        .IsUnique();
+
+                    b.ToTable("Contacts");
+                });
+
             modelBuilder.Entity("FileMaker.Domain.Models.Language", b =>
                 {
                     b.Property<int>("Id")
@@ -769,15 +771,6 @@ namespace FileMaker.Domain.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FileMaker.Domain.Models.Contact", b =>
-                {
-                    b.HasOne("FileMaker.Domain.Models.Employee", "Employee")
-                        .WithOne("EmployeetContact")
-                        .HasForeignKey("FileMaker.Domain.Models.Contact", "EmployeeNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("FileMaker.Domain.Models.Employee", b =>
                 {
                     b.HasOne("FileMaker.Domain.Models.Education", "Education")
@@ -846,6 +839,15 @@ namespace FileMaker.Domain.Migrations
                     b.HasOne("FileMaker.Domain.Models.Skill", "Skill")
                         .WithMany("EmployeeSkills")
                         .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FileMaker.Domain.Models.EmployeetContact", b =>
+                {
+                    b.HasOne("FileMaker.Domain.Models.Employee", "Employee")
+                        .WithOne("EmployeetContact")
+                        .HasForeignKey("FileMaker.Domain.Models.EmployeetContact", "EmployeeNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

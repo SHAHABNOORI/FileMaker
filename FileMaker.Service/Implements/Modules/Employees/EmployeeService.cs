@@ -133,10 +133,9 @@ namespace FileMaker.Service.Implements.Modules.Employees
             if (selectedEmployee == null)
                 return GenerateFaidResult("کارمند مورد نظر یافت نشد");
 
-            selectedEmployee.EmployeetContact = new EmployeetContact()
+            selectedEmployee.EmployeetContact = new Contact()
             {
                 ContactType = command.EmployeeContactInfo.ContactType,
-                EmailAddress = command.EmployeeContactInfo.EmailAddress,
                 MobileNumber = command.EmployeeContactInfo.MobileNumber,
                 OkToContact = command.EmployeeContactInfo.OkToContact,
                 PostalCode = command.EmployeeContactInfo.PostalCode,
@@ -146,7 +145,8 @@ namespace FileMaker.Service.Implements.Modules.Employees
             selectedEmployee.EmployeeAddress = new EmployeeAddress()
             {
                 PostalCode = command.EmployeeAddressInfo.PostalCode,
-                Address = command.EmployeeAddressInfo.Address,
+                AddressOne = command.EmployeeAddressInfo.AddressOne,
+                AddressTwo = command.EmployeeAddressInfo.AddressTwo,
                 City = command.EmployeeAddressInfo.City,
                 Email = command.EmployeeAddressInfo.Email,
                 Town = command.EmployeeAddressInfo.Town
@@ -174,7 +174,6 @@ namespace FileMaker.Service.Implements.Modules.Employees
             if (command.EmployeeContactInfo != null)
             {
                 selectedEmployee.EmployeetContact.ContactType = command.EmployeeContactInfo.ContactType;
-                selectedEmployee.EmployeetContact.EmailAddress = command.EmployeeContactInfo.EmailAddress;
                 selectedEmployee.EmployeetContact.MobileNumber = command.EmployeeContactInfo.MobileNumber;
                 selectedEmployee.EmployeetContact.OkToContact = command.EmployeeContactInfo.OkToContact;
                 selectedEmployee.EmployeetContact.PostalCode = command.EmployeeContactInfo.PostalCode;
@@ -184,7 +183,8 @@ namespace FileMaker.Service.Implements.Modules.Employees
             if (command.EmployeeAddressInfo != null)
             {
                 selectedEmployee.EmployeeAddress.PostalCode = command.EmployeeAddressInfo.PostalCode;
-                selectedEmployee.EmployeeAddress.Address = command.EmployeeAddressInfo.Address;
+                selectedEmployee.EmployeeAddress.AddressOne = command.EmployeeAddressInfo.AddressOne;
+                selectedEmployee.EmployeeAddress.AddressTwo = command.EmployeeAddressInfo.AddressTwo;
                 selectedEmployee.EmployeeAddress.City = command.EmployeeAddressInfo.City;
                 selectedEmployee.EmployeeAddress.Email = command.EmployeeAddressInfo.Email;
                 selectedEmployee.EmployeeAddress.Town = command.EmployeeAddressInfo.Town;
@@ -195,7 +195,8 @@ namespace FileMaker.Service.Implements.Modules.Employees
                 selectedEmployee.EmployeeEmergencyContact.Name = command.EmployeeEmergencyContactInfo.Name;
                 selectedEmployee.EmployeeEmergencyContact.PhoneNumber = command.EmployeeEmergencyContactInfo.PhoneNumber;
                 selectedEmployee.EmployeeEmergencyContact.Relation = command.EmployeeEmergencyContactInfo.Relation;
-;            }
+                ;
+            }
 
             UnitOfWork.Update(selectedEmployee);
             var result = await UnitOfWork.CompleteAsync();
@@ -232,6 +233,7 @@ namespace FileMaker.Service.Implements.Modules.Employees
 
             selectedEmployee.BankInfo = new BankInfo()
             {
+                BankName = command.EmployeeBankInfo.BankName,
                 AccountName = command.EmployeeBankInfo.AccountName,
                 AccountNo = command.EmployeeBankInfo.AccountNo,
                 Iban = command.EmployeeBankInfo.Iban,
@@ -280,6 +282,7 @@ namespace FileMaker.Service.Implements.Modules.Employees
             if (command.EmployeeBankInfo != null)
             {
                 selectedEmployee.BankInfo.AccountName = command.EmployeeBankInfo.AccountName;
+                selectedEmployee.BankInfo.BankName = command.EmployeeBankInfo.BankName;
                 selectedEmployee.BankInfo.AccountNo = command.EmployeeBankInfo.AccountNo;
                 selectedEmployee.BankInfo.Iban = command.EmployeeBankInfo.Iban;
                 selectedEmployee.BankInfo.SortCode = command.EmployeeBankInfo.SortCode;
@@ -345,6 +348,95 @@ namespace FileMaker.Service.Implements.Modules.Employees
                 {
                     SkillName = skill.Skill.SkillName,
                     Id = skill.Skill.SkillId
+                };
+            }
+
+            var employeeEmergencyContact = selectedEmployee.EmployeeEmergencyContact;
+            if (employeeEmergencyContact != null)
+            {
+                viewModel.EmployeeEmergencyContactInfo = new EmployeeEmergencyContactInfoViewModel()
+                {
+                    PhoneNumber = employeeEmergencyContact.PhoneNumber,
+                    Name = employeeEmergencyContact.Name,
+                    Relation = employeeEmergencyContact.Relation
+                };
+            }
+
+            var employeeAddress = selectedEmployee.EmployeeAddress;
+            if (employeeAddress != null)
+            {
+                viewModel.EmployeeAddressInfo = new EmployeeAddressInfoViewModel()
+                {
+                    City = employeeAddress.City,
+                    Town = employeeAddress.Town,
+                    PostalCode = employeeAddress.PostalCode,
+                    AddressOne = employeeAddress.AddressOne,
+                    AddressTwo = employeeAddress.AddressTwo,
+                    Email = employeeAddress.Email
+                };
+            }
+            var employeeContact = selectedEmployee.EmployeetContact;
+            if (employeeContact != null)
+            {
+                viewModel.EmployeeContactInfo = new EmployeeContactInfoViewModel()
+                {
+                    PostalCode = employeeContact.PostalCode,
+                    PhoneNumber = employeeContact.PhoneNumber,
+                    OkToContact = employeeContact.OkToContact,
+                    MobileNumber = employeeContact.MobileNumber,
+                    ContactType = employeeContact.ContactType
+                };
+            }
+
+            var employeeBankInfo = selectedEmployee.BankInfo;
+            if (employeeBankInfo != null)
+            {
+                viewModel.EmployeeBankInfo = new EmployeeBankInfoViewModel()
+                {
+                    Iban = employeeBankInfo.Iban,
+                    BankName = employeeBankInfo.BankName,
+                    AccountNo = employeeBankInfo.AccountNo,
+                    SortCode = employeeBankInfo.SortCode,
+                    AccountName = employeeBankInfo.AccountName
+                };
+            }
+
+            var employeeRecruitment = selectedEmployee.EmployeeRecruitment;
+            if (employeeRecruitment != null)
+            {
+                viewModel.EmployeeRecruitment = new EmployeeRecruitmentViewModel()
+                {
+                    TypeOfEmployment = employeeRecruitment.TypeOfEmployment,
+                    InsuarenceNumber = employeeRecruitment.InsuarenceNumber,
+                    DateStarted = employeeRecruitment.DateStarted,
+                    DatePensionStarted = employeeRecruitment.DatePensionStarted,
+                    Reason = employeeRecruitment.Reason,
+                    Relationship = employeeRecruitment.Relationship,
+                    DateLeft = employeeRecruitment.DateLeft
+                };
+            }
+
+            var employeePayment = selectedEmployee.Payment;
+            if (employeePayment != null)
+            {
+                viewModel.EmployeePayment = new EmployeePaymentViewModel()
+                {
+                    PaymentMethod = employeePayment.PaymentMethod,
+                    PaymentFrequency = employeePayment.PaymentFrequency
+                };
+            }
+
+            var employeeWork = selectedEmployee.Work;
+            if (employeeWork != null)
+            {
+                viewModel.EmployeeWork = new EmployeeWorkViewModel()
+                {
+                    Unit = employeeWork.Unit,
+                    Shift = employeeWork.Shift,
+                    JobTitle = employeeWork.JobTitle,
+                    TimecardNo = employeeWork.TimecardNo,
+                    Hour = employeeWork.Hour,
+                    Department = employeeWork.Department
                 };
             }
             return viewModel;
