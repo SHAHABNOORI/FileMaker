@@ -4,50 +4,22 @@ using FileMaker.Domain.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FileMaker.Domain.Migrations
 {
     [DbContext(typeof(FileMakerFinalContext))]
-    partial class FileMakerFinalContextModelSnapshot : ModelSnapshot
+    [Migration("20200224052245_AddWorkModelToDatabase")]
+    partial class AddWorkModelToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("FileMaker.Domain.Models.BankInfo", b =>
-                {
-                    b.Property<int>("BankInfoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountName")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AccountNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EmployeeNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Iban")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SortCode")
-                        .HasColumnType("int");
-
-                    b.HasKey("BankInfoId");
-
-                    b.HasIndex("EmployeeNumber")
-                        .IsUnique();
-
-                    b.ToTable("BankInfos");
-                });
 
             modelBuilder.Entity("FileMaker.Domain.Models.Client", b =>
                 {
@@ -617,30 +589,6 @@ namespace FileMaker.Domain.Migrations
                     b.ToTable("Origins");
                 });
 
-            modelBuilder.Entity("FileMaker.Domain.Models.Payment", b =>
-                {
-                    b.Property<int>("PaymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EmployeeNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentFrequency")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentMethod")
-                        .HasColumnType("int");
-
-                    b.HasKey("PaymentId");
-
-                    b.HasIndex("EmployeeNumber")
-                        .IsUnique();
-
-                    b.ToTable("Payments");
-                });
-
             modelBuilder.Entity("FileMaker.Domain.Models.Skill", b =>
                 {
                     b.Property<int>("SkillId")
@@ -666,9 +614,6 @@ namespace FileMaker.Domain.Migrations
                     b.Property<int>("Department")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployeeNumber")
-                        .HasColumnType("int");
-
                     b.Property<int>("Hour")
                         .HasColumnType("int");
 
@@ -686,19 +631,7 @@ namespace FileMaker.Domain.Migrations
 
                     b.HasKey("WorkId");
 
-                    b.HasIndex("EmployeeNumber")
-                        .IsUnique();
-
                     b.ToTable("Works");
-                });
-
-            modelBuilder.Entity("FileMaker.Domain.Models.BankInfo", b =>
-                {
-                    b.HasOne("FileMaker.Domain.Models.Employee", "Employee")
-                        .WithOne("BankInfo")
-                        .HasForeignKey("FileMaker.Domain.Models.BankInfo", "EmployeeNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("FileMaker.Domain.Models.Client", b =>
@@ -843,24 +776,6 @@ namespace FileMaker.Domain.Migrations
                     b.HasOne("FileMaker.Domain.Models.Employee", "Employee")
                         .WithOne("EmployeetContact")
                         .HasForeignKey("FileMaker.Domain.Models.EmployeetContact", "EmployeeNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FileMaker.Domain.Models.Payment", b =>
-                {
-                    b.HasOne("FileMaker.Domain.Models.Employee", "Employee")
-                        .WithOne("Payment")
-                        .HasForeignKey("FileMaker.Domain.Models.Payment", "EmployeeNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FileMaker.Domain.Models.Work", b =>
-                {
-                    b.HasOne("FileMaker.Domain.Models.Employee", "Employee")
-                        .WithOne("Work")
-                        .HasForeignKey("FileMaker.Domain.Models.Work", "EmployeeNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

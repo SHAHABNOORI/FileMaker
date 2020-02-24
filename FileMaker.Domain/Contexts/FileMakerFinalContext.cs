@@ -42,6 +42,18 @@ namespace FileMaker.Domain.Contexts
 
         public DbSet<EmployeetContact> Contacts { get; set; }
 
+        public DbSet<EmployeeAddress> EmployeeAddresses { get; set; }
+
+        public DbSet<EmployeeEmergencyContact> EmployeeEmergencyContacts { get; set; }
+
+        public DbSet<EmployeeRecruitment> EmployeeRecruitments { get; set; }
+
+        public DbSet<Work> Works { get; set; }
+
+        public DbSet<BankInfo> BankInfos { get; set; }
+
+        public DbSet<Payment> Payments { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -80,6 +92,11 @@ namespace FileMaker.Domain.Contexts
                 entity.HasKey(e => e.EmployeeContactId);
             });
 
+            modelBuilder.Entity<EmployeeAddress>(entity =>
+            {
+                entity.HasKey(e => e.EmployeeAddressId);
+            });
+
             modelBuilder.Entity<Skill>(entity =>
             {
                 entity.HasKey(e => e.SkillId);
@@ -90,20 +107,40 @@ namespace FileMaker.Domain.Contexts
                 entity.HasKey(e => e.DegreeId);
             });
 
+            modelBuilder.Entity<EmployeeEmergencyContact>(entity =>
+            {
+                entity.HasKey(e => e.EmployeeEmergenctContactId);
+            });
+
+            modelBuilder.Entity<EmployeeRecruitment>(entity =>
+            {
+                entity.HasKey(e => e.EmployeeRecruitmentId);
+            });
+
+            modelBuilder.Entity<Work>(entity =>
+            {
+                entity.HasKey(e => e.WorkId);
+            });
+
+            modelBuilder.Entity<BankInfo>(entity =>
+            {
+                entity.HasKey(e => e.BankInfoId);
+            });
+
+            modelBuilder.Entity<Payment>(entity =>
+            {
+                entity.HasKey(e => e.PaymentId);
+            });
+
             modelBuilder.Entity<Client>()
                 .HasOne(a => a.ClientContact)
                 .WithOne(b => b.Client)
                 .HasForeignKey<ClientContact>(b => b.ClientCode);
 
-            modelBuilder.Entity<Employee>()
-                .HasOne(a => a.EmployeetContact)
-                .WithOne(b => b.Employee)
-                .HasForeignKey<EmployeetContact>(b => b.EmployeeNumber);
-
             modelBuilder.Entity<ClientAddress>(entity =>
-            {
-                entity.HasKey(e => e.ClientAddressId);
-            });
+               {
+                   entity.HasKey(e => e.ClientAddressId);
+               });
 
             modelBuilder.Entity<Client>()
                 .HasOne(a => a.ClientAddress)
@@ -159,6 +196,7 @@ namespace FileMaker.Domain.Contexts
                 .HasOne(es => es.Employee)
                 .WithMany(b => b.EmployeeSkills)
                 .HasForeignKey(bc => bc.EmployeeNumber);
+
             modelBuilder.Entity<EmployeeSkill>()
                 .HasOne(es => es.Skill)
                 .WithMany(c => c.EmployeeSkills)
@@ -171,10 +209,46 @@ namespace FileMaker.Domain.Contexts
                 .HasOne(es => es.Employee)
                 .WithMany(b => b.EmployeeDegrees)
                 .HasForeignKey(bc => bc.EmployeeNumber);
+
             modelBuilder.Entity<EmployeeDegree>()
                 .HasOne(es => es.Degree)
                 .WithMany(c => c.EmployeeDegrees)
                 .HasForeignKey(bc => bc.DegreeId);
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(a => a.EmployeetContact)
+                .WithOne(b => b.Employee)
+                .HasForeignKey<EmployeetContact>(b => b.EmployeeNumber);
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(a => a.EmployeeAddress)
+                .WithOne(b => b.Employee)
+                .HasForeignKey<EmployeeAddress>(b => b.EmployeeNumber);
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(a => a.EmployeeEmergencyContact)
+                .WithOne(b => b.Employee)
+                .HasForeignKey<EmployeeEmergencyContact>(b => b.EmployeeNumber);
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(a => a.EmployeeRecruitment)
+                .WithOne(b => b.Employee)
+                .HasForeignKey<EmployeeRecruitment>(b => b.EmployeeNumber);
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(a => a.Work)
+                .WithOne(b => b.Employee)
+                .HasForeignKey<Work>(b => b.EmployeeNumber);
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(a => a.BankInfo)
+                .WithOne(b => b.Employee)
+                .HasForeignKey<BankInfo>(b => b.EmployeeNumber);
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(a => a.Payment)
+                .WithOne(b => b.Employee)
+                .HasForeignKey<Payment>(b => b.EmployeeNumber);
         }
     }
 }

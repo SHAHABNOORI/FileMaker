@@ -36,6 +36,18 @@ namespace FileMaker.Domain.Models
 
         public virtual EmployeetContact EmployeetContact { get; set; }
 
+        public virtual EmployeeAddress EmployeeAddress { get; set; }
+
+        public virtual EmployeeRecruitment EmployeeRecruitment { get; set; }
+
+        public virtual Work Work { get; set; }
+
+        public virtual BankInfo BankInfo { get; set; }
+
+        public virtual Payment Payment { get; set; }
+
+        public virtual EmployeeEmergencyContact EmployeeEmergencyContact { get; set; }
+
         public virtual ICollection<EmployeeSkill> EmployeeSkills { get; set; }
 
         public virtual ICollection<EmployeeDegree> EmployeeDegrees { get; set; }
