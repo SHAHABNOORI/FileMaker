@@ -127,24 +127,174 @@ namespace FileMaker.Service.Implements.Modules.Employees
             return GenerateSuccessResult("دریافت", viewModel);
         }
 
-        public Task<Result> CreateEmployeeContactInfoAsyn(CreateEmployeeContactInfoCommand command)
+        public async Task<Result> CreateEmployeeContactInfoAsyn(CreateEmployeeContactInfoCommand command)
         {
-            throw new NotImplementedException();
+            var selectedEmployee = await UnitOfWork.EmployeeRepository.GetEmployeeInfoByEmployeeNumberAsync(command.EmployeeNumber);
+            if (selectedEmployee == null)
+                return GenerateFaidResult("کارمند مورد نظر یافت نشد");
+
+            selectedEmployee.EmployeetContact = new EmployeetContact()
+            {
+                ContactType = command.EmployeeContactInfo.ContactType,
+                EmailAddress = command.EmployeeContactInfo.EmailAddress,
+                MobileNumber = command.EmployeeContactInfo.MobileNumber,
+                OkToContact = command.EmployeeContactInfo.OkToContact,
+                PostalCode = command.EmployeeContactInfo.PostalCode,
+                PhoneNumber = command.EmployeeContactInfo.PhoneNumber
+            };
+
+            selectedEmployee.EmployeeAddress = new EmployeeAddress()
+            {
+                PostalCode = command.EmployeeAddressInfo.PostalCode,
+                Address = command.EmployeeAddressInfo.Address,
+                City = command.EmployeeAddressInfo.City,
+                Email = command.EmployeeAddressInfo.Email,
+                Town = command.EmployeeAddressInfo.Town
+            };
+
+            selectedEmployee.EmployeeEmergencyContact = new EmployeeEmergencyContact()
+            {
+                Name = command.EmployeeEmergencyContactInfo.Name,
+                PhoneNumber = command.EmployeeEmergencyContactInfo.PhoneNumber,
+                Relation = command.EmployeeEmergencyContactInfo.Relation
+            };
+
+            UnitOfWork.Update(selectedEmployee);
+            var result = await UnitOfWork.CompleteAsync();
+            return result != 0 ? GenerateSuccessResult("ویرایش ", null) :
+                GenerateFaidResult("ویرایش ");
         }
 
-        public Task<Result> UpdateEmployeeContactInfoAsyn(UpdateEmployeeContactInfoCommand command)
+        public async Task<Result> UpdateEmployeeContactInfoAsyn(UpdateEmployeeContactInfoCommand command)
         {
-            throw new NotImplementedException();
+            var selectedEmployee = await UnitOfWork.EmployeeRepository.GetEmployeeInfoByEmployeeNumberAsync(command.EmployeeNumber);
+            if (selectedEmployee == null)
+                return GenerateFaidResult("کارمند مورد نظر یافت نشد");
+
+            if (command.EmployeeContactInfo != null)
+            {
+                selectedEmployee.EmployeetContact.ContactType = command.EmployeeContactInfo.ContactType;
+                selectedEmployee.EmployeetContact.EmailAddress = command.EmployeeContactInfo.EmailAddress;
+                selectedEmployee.EmployeetContact.MobileNumber = command.EmployeeContactInfo.MobileNumber;
+                selectedEmployee.EmployeetContact.OkToContact = command.EmployeeContactInfo.OkToContact;
+                selectedEmployee.EmployeetContact.PostalCode = command.EmployeeContactInfo.PostalCode;
+                selectedEmployee.EmployeetContact.PhoneNumber = command.EmployeeContactInfo.PhoneNumber;
+            }
+
+            if (command.EmployeeAddressInfo != null)
+            {
+                selectedEmployee.EmployeeAddress.PostalCode = command.EmployeeAddressInfo.PostalCode;
+                selectedEmployee.EmployeeAddress.Address = command.EmployeeAddressInfo.Address;
+                selectedEmployee.EmployeeAddress.City = command.EmployeeAddressInfo.City;
+                selectedEmployee.EmployeeAddress.Email = command.EmployeeAddressInfo.Email;
+                selectedEmployee.EmployeeAddress.Town = command.EmployeeAddressInfo.Town;
+            }
+
+            if (command.EmployeeEmergencyContactInfo != null)
+            {
+                selectedEmployee.EmployeeEmergencyContact.Name = command.EmployeeEmergencyContactInfo.Name;
+                selectedEmployee.EmployeeEmergencyContact.PhoneNumber = command.EmployeeEmergencyContactInfo.PhoneNumber;
+                selectedEmployee.EmployeeEmergencyContact.Relation = command.EmployeeEmergencyContactInfo.Relation;
+;            }
+
+            UnitOfWork.Update(selectedEmployee);
+            var result = await UnitOfWork.CompleteAsync();
+            return result != 0 ? GenerateSuccessResult("ویرایش ", null) :
+                GenerateFaidResult("ویرایش ");
         }
 
-        public Task<Result> CreateEmployeeRecruitmentInfoAsyn(CreateEmployeeRecruitmentInfoCommand command)
+        public async Task<Result> CreateEmployeeRecruitmentInfoAsyn(CreateEmployeeRecruitmentInfoCommand command)
         {
-            throw new NotImplementedException();
+            var selectedEmployee = await UnitOfWork.EmployeeRepository.GetEmployeeInfoByEmployeeNumberAsync(command.EmployeeNumber);
+            if (selectedEmployee == null)
+                return GenerateFaidResult("کارمند مورد نظر یافت نشد");
+
+            selectedEmployee.EmployeeRecruitment = new EmployeeRecruitment()
+            {
+                DateLeft = command.EmployeeRecruitment.DateLeft,
+                DatePensionStarted = command.EmployeeRecruitment.DatePensionStarted,
+                DateStarted = command.EmployeeRecruitment.DateStarted,
+                InsuarenceNumber = command.EmployeeRecruitment.InsuarenceNumber,
+                Reason = command.EmployeeRecruitment.Reason,
+                Relationship = command.EmployeeRecruitment.Relationship,
+                TypeOfEmployment = command.EmployeeRecruitment.TypeOfEmployment
+            };
+
+            selectedEmployee.Work = new Work()
+            {
+                Department = command.EmployeeWork.Department,
+                Hour = command.EmployeeWork.Hour,
+                JobTitle = command.EmployeeWork.JobTitle,
+                Shift = command.EmployeeWork.Shift,
+                TimecardNo = command.EmployeeWork.TimecardNo,
+                Unit = command.EmployeeWork.Unit
+            };
+
+            selectedEmployee.BankInfo = new BankInfo()
+            {
+                AccountName = command.EmployeeBankInfo.AccountName,
+                AccountNo = command.EmployeeBankInfo.AccountNo,
+                Iban = command.EmployeeBankInfo.Iban,
+                SortCode = command.EmployeeBankInfo.SortCode
+            };
+
+            selectedEmployee.Payment = new Payment()
+            {
+                PaymentFrequency = command.EmployeePayment.PaymentFrequency,
+                PaymentMethod = command.EmployeePayment.PaymentMethod
+            };
+
+            UnitOfWork.Update(selectedEmployee);
+            var result = await UnitOfWork.CompleteAsync();
+            return result != 0 ? GenerateSuccessResult("ویرایش ", null) :
+                GenerateFaidResult("ویرایش ");
         }
 
-        public Task<Result> UpdateEmployeeRecruitmentInfoAsyn(UpdateEmployeeRecruitmentInfoCommand command)
+        public async Task<Result> UpdateEmployeeRecruitmentInfoAsyn(UpdateEmployeeRecruitmentInfoCommand command)
         {
-            throw new NotImplementedException();
+            var selectedEmployee = await UnitOfWork.EmployeeRepository.GetEmployeeInfoByEmployeeNumberAsync(command.EmployeeNumber);
+            if (selectedEmployee == null)
+                return GenerateFaidResult("کارمند مورد نظر یافت نشد");
+
+            if (command.EmployeeRecruitment != null)
+            {
+                selectedEmployee.EmployeeRecruitment.DateLeft = command.EmployeeRecruitment.DateLeft;
+                selectedEmployee.EmployeeRecruitment.DatePensionStarted = command.EmployeeRecruitment.DatePensionStarted;
+                selectedEmployee.EmployeeRecruitment.DateStarted = command.EmployeeRecruitment.DateStarted;
+                selectedEmployee.EmployeeRecruitment.InsuarenceNumber = command.EmployeeRecruitment.InsuarenceNumber;
+                selectedEmployee.EmployeeRecruitment.Reason = command.EmployeeRecruitment.Reason;
+                selectedEmployee.EmployeeRecruitment.Relationship = command.EmployeeRecruitment.Relationship;
+                selectedEmployee.EmployeeRecruitment.TypeOfEmployment = command.EmployeeRecruitment.TypeOfEmployment;
+            }
+
+            if (command.EmployeeWork != null)
+            {
+                selectedEmployee.Work.Department = command.EmployeeWork.Department;
+                selectedEmployee.Work.Hour = command.EmployeeWork.Hour;
+                selectedEmployee.Work.JobTitle = command.EmployeeWork.JobTitle;
+                selectedEmployee.Work.Shift = command.EmployeeWork.Shift;
+                selectedEmployee.Work.TimecardNo = command.EmployeeWork.TimecardNo;
+                selectedEmployee.Work.Unit = command.EmployeeWork.Unit;
+            }
+
+            if (command.EmployeeBankInfo != null)
+            {
+                selectedEmployee.BankInfo.AccountName = command.EmployeeBankInfo.AccountName;
+                selectedEmployee.BankInfo.AccountNo = command.EmployeeBankInfo.AccountNo;
+                selectedEmployee.BankInfo.Iban = command.EmployeeBankInfo.Iban;
+                selectedEmployee.BankInfo.SortCode = command.EmployeeBankInfo.SortCode;
+            }
+
+            if (command.EmployeePayment != null)
+            {
+                selectedEmployee.Payment.PaymentFrequency = command.EmployeePayment.PaymentFrequency;
+                selectedEmployee.Payment.PaymentMethod = command.EmployeePayment.PaymentMethod;
+            }
+
+            UnitOfWork.Update(selectedEmployee);
+            var result = await UnitOfWork.CompleteAsync();
+            return result != 0 ? GenerateSuccessResult("ویرایش ", null) :
+                GenerateFaidResult("ویرایش ");
         }
 
         private EmployeeInfoViewModel GenerateEmployeeInfoViewModel(Employee selectedEmployee)

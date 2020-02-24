@@ -21,6 +21,13 @@ namespace FileMaker.Dal.Repositories.Implements
                 .Include(employee => employee.EmployeeSkills).ThenInclude(x => x.Skill)
                 .Include(employee => employee.Language)
                 .Include(employee => employee.Origin)
+                .Include(employee => employee.BankInfo)
+                .Include(employee => employee.EmployeeAddress)
+                .Include(employee => employee.EmployeeEmergencyContact)
+                .Include(employee => employee.EmployeeRecruitment)
+                .Include(employee => employee.EmployeetContact)
+                .Include(employee => employee.Work)
+                .Include(employee => employee.Payment)
                 .FirstOrDefaultAsync(client => client.EmployeeNumber == id);
             return result;
         }
